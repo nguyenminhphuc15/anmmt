@@ -1,0 +1,182 @@
+# Auth Flow Demo - Next.js Implementation Plan
+
+Xây dựng một ứng dụng demo tương tác bằng Next.js 14 (App Router) để minh họa 3 luồng xác thực quan trọng: Magic Link, OAuth2, và Authorization Code Flow. Đây là ứng dụng **hoàn toàn frontend** (mock/simulation) — không cần backend thực.
+
+---
+
+## Tech Stack
+
+| Thư viện                | Vai trò                       |
+| ----------------------- | ----------------------------- |
+| Next.js 14 (App Router) | Framework chính               |
+| TailwindCSS             | Styling                       |
+| shadcn/ui               | UI components                 |
+| Framer Motion           | Animations & step transitions |
+| Lucide React            | Icons                         |
+
+---
+
+## Proposed Changes
+
+### Project: `auth-flow-demo`
+
+Location: `C:\Users\Admin\.gemini\antigravity\scratch\auth-flow-demo`
+
+---
+
+### App Structure
+
+```
+auth-flow-demo/
+├── app/
+│   ├── layout.tsx                  # Root layout, dark theme
+│   ├── page.tsx                    # Landing page — chọn demo
+│   ├── login/
+│   │   └── page.tsx               # Màn hình đăng nhập chính
+│   ├── dashboard/
+│   │   └── page.tsx               # Dashboard + Lịch sử đăng nhập
+│   ├── demo/
+│   │   ├── magic-link/
+│   │   │   └── page.tsx           # Magic Link flow
+│   │   ├── oauth/
+│   │   │   └── page.tsx           # OAuth2 Google/GitHub
+│   │   └── auth-code-flow/
+│   │       └── page.tsx           # Auth Code Flow diagram
+├── components/
+│   ├── ui/                        # shadcn components
+│   ├── nav.tsx                    # Top navigation
+│   ├── login/
+│   │   ├── method-selector.tsx    # Chọn phương thức đăng nhập
+│   ├── dashboard/
+│   │   ├── user-header.tsx        # Greeting + badge phương thức
+│   │   └── login-history-table.tsx # Bảng lịch sử
+│   ├── magic-link/
+│   │   ├── email-form.tsx         # Bước 1: nhập email
+│   │   ├── email-preview.tsx      # Bước 2: mock inbox/email
+│   │   └── success-screen.tsx     # Bước 4: đăng nhập thành công
+│   ├── oauth/
+│   │   ├── provider-buttons.tsx   # Google & GitHub buttons
+│   │   ├── consent-screen.tsx     # Màn hình xin quyền mock
+│   │   └── token-display.tsx      # Hiển thị token nhận được
+│   └── auth-code-flow/
+│       ├── flow-diagram.tsx       # Sơ đồ tương tác animated
+│       ├── step-detail.tsx        # Chi tiết từng step
+│       └── code-snippet.tsx       # Code mẫu cho mỗi bước
+└── lib/
+    ├── mock-data.ts               # Mock tokens, emails, user data
+    └── session.ts                 # sessionStorage helpers
+```
+
+---
+
+### Pages
+
+#### [NEW] Landing Page `app/page.tsx`
+
+- Hero section: tiêu đề + mô tả
+- 3 card demo + nút **"Thử đăng nhập"** → redirect `/login`
+- Glassmorphism dark theme
+
+#### [NEW] Login Screen `app/login/page.tsx`
+
+3 phương thức trong 3 card có animation:
+
+| Card | Icon | Action |
+|---|---|---|
+| Magic Link | ✉️ | Form nhập email → chạy flow Magic Link |
+| Google OAuth | 🔵 | Chạy flow OAuth2 với Google consent mock |
+| GitHub OAuth | ⚫ | Chạy flow OAuth2 với GitHub consent mock |
+
+Sau khi hoàn thành flow bất kỳ → lưu vào `sessionStorage`:
+```json
+{ "method": "magic-link", "email": "user@example.com", "loggedAt": "2026-04-08T01:05:00", "ip": "113.185.12.x" }
+```
+→ Redirect tự động đến `/dashboard`
+
+#### [NEW] Dashboard `app/dashboard/page.tsx`
+
+**Phần 1 — User Header:**
+- Avatar giả + "Xin chào, user@example.com!"
+- Badge phương thức vừa dùng: `✉️ Magic Link` / `🔵 Google` / `⚫ GitHub`
+- Nút **Đăng xuất** (xoá sessionStorage → redirect `/login`)
+
+**Phần 2 — Bảng lịch sử đăng nhập:**
+
+| # | Phương thức | Email/Provider | Thời gian | Địa chỉ IP | Thiết bị | Trạng thái |
+|---|---|---|---|---|---|---|
+| 1 | ✉️ Magic Link | user@mail.com | Hôm nay 01:05 | 113.185.x.x | Chrome / Win | ✅ |
+| 2 | 🔵 Google | google_user | Hôm qua 14:32 | 113.185.x.x | Safari / Mac | ✅ |
+| 3 | ⚫ GitHub | github_user | 3 ngày trước | 14.237.x.x | Firefox / Linux | ✅ |
+| 4 | ✉️ Magic Link | user@mail.com | 1 tuần trước | 113.185.x.x | Chrome / Win | ❌ Hết hạn |
+
+Session hiện tại được **highlight** màu indigo.
+
+#### [NEW] Magic Link `app/demo/magic-link/page.tsx`
+
+4 bước được animate:
+
+1. **Form nhập email** → nhấn "Gửi Magic Link"
+2. **Mock inbox** → Hiển thị email preview giả với link
+3. **Redirect animation** → Mô phỏng click vào link
+4. **Success screen** → Avatar user + thông tin đăng nhập
+
+#### [NEW] OAuth2 Demo `app/demo/oauth/page.tsx`
+
+Flow:
+
+1. **Chọn provider** → Google hoặc GitHub button
+2. **Consent Screen** → Mock popup giống Google/GitHub UI thật
+3. **Code Exchange** → Hiển thị animated request/response giữa client & server
+4. **Token received** → JSON display của access token + user info
+
+#### [NEW] Auth Code Flow `app/demo/auth-code-flow/page.tsx`
+
+- **Interactive diagram** với 4 actors: Browser, Client App, Auth Server, Resource Server
+- Click từng mũi tên để xem request/response detail
+- **Timeline stepper** bên dưới với code snippet (curl/HTTP format)
+- **Tab so sánh**: Implicit Flow vs PKCE vs Auth Code
+
+---
+
+## Design System
+
+```
+Background:  #0a0a0f (near black)
+Card:        rgba(255,255,255,0.05) + backdrop-blur
+Primary:     #6366f1 (indigo)
+Success:     #22c55e (green)
+Border:      rgba(255,255,255,0.1)
+Text:        #f1f5f9
+```
+
+Font: **Inter** (Google Fonts)
+
+---
+
+## Verification Plan
+
+### Automated
+
+Không có unit test — đây là UI demo. Veriry bằng dev server.
+
+### Manual Verification
+
+Sau khi chạy `npm run dev` (port 3000):
+
+1. **Landing page** (`http://localhost:3000`)
+   - Thấy 3 card demo, hover effect, click navigate đúng route
+
+2. **Magic Link** (`http://localhost:3000/demo/magic-link`)
+   - Nhập email → click "Gửi Magic Link" → thấy step 2 (inbox mockup)
+   - Click nút trong email mock → thấy step 3 (loading animation)
+   - Thấy step 4: success screen với email đã nhập
+
+3. **OAuth2** (`http://localhost:3000/demo/oauth`)
+   - Click Google → thấy consent screen Google-like
+   - Click "Allow" → thấy token display với mock JSON
+   - Click GitHub → tương tự nhưng với GitHub UI style
+
+4. **Auth Code Flow** (`http://localhost:3000/demo/auth-code-flow`)
+   - Thấy diagram với 4 actors
+   - Click "Start Flow" → các bước animate tuần tự
+   - Click từng step → panel mở ra code snippet tương ứng

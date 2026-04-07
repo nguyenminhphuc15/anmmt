@@ -1,0 +1,66 @@
+# Auth Demo Next.js - Task Checklist
+
+## Planning
+
+- [/] Write implementation plan
+- [ ] Get user approval
+
+## Project Setup
+
+- [ ] Create Next.js 14+ app with App Router
+- [ ] Install dependencies (tailwindcss, shadcn/ui, framer-motion, etc.)
+- [ ] Configure project structure
+
+## Pages & Routes
+
+- [ ] `/` - Home / Landing page (menu chọn demo)
+- [ ] `/demo/magic-link` - Magic Link Flow Demo
+- [ ] `/demo/oauth` - OAuth2 (Google/GitHub) Demo
+- [ ] `/demo/auth-code-flow` - Authorization Code Flow Visualization
+
+## Magic Link Demo
+
+- [ ] Form nhập email
+- [ ] Step animation: Gửi email → Kiểm tra inbox → Click link → Đăng nhập
+- [ ] Mock email preview component
+- [ ] Success state
+
+## OAuth2 Demo
+
+- [ ] Nút "Login with Google" và "Login with GitHub"
+- [ ] Popup/redirect simulation
+- [ ] Permission consent screen mock
+- [ ] Token exchange simulation
+
+## Auth Code Flow Visualization
+
+- [ ] Interactive diagram: Client → Auth Server → User → Token
+- [ ] Step-by-step animated flow
+- [ ] Code snippets minh họa từng bước
+- [ ] So sánh Implicit vs Auth Code flow
+
+## Login Screen `/login`
+- [ ] Hiển thị 3 lựa chọn: Magic Link / Google / GitHub
+- [ ] Mỗi lựa chọn trigger flow demo tương ứng
+- [ ] Sau khi hoàn thành flow → redirect đến `/dashboard`
+- [ ] Lưu sessionStorage: method dùng + timestamp + mock user info
+
+## Dashboard + Login History `/dashboard`
+- [ ] Greeting: "Xin chào [email]!"
+- [ ] Hiển thị badge phương thức đã dùng: Magic Link / Google / GitHub
+- [ ] Bảng lịch sử đăng nhập (mock data + session hiện tại)
+  - Cột: STT, Phương thức, Email/Provider, Thời gian, IP giả, Thiết bị giả, Trạng thái
+- [ ] Nút Đăng xuất
+
+## UI/UX
+
+- [ ] Dark mode glassmorphism design
+- [ ] Smooth animations (framer-motion)
+- [ ] Responsive layout
+- [ ] Progress stepper component
+
+## Verification
+
+- [ ] Dev server chạy không lỗi
+- [ ] Tất cả các route accessible
+- [ ] Animation mượt mà
