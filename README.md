@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🔐 AuthFlow Demo — Next.js 16 Real Backend Simulation
 
-## Getting Started
+Một ứng dụng demo tương tác cao, giúp hiểu rõ cơ chế của các luồng xác thực hiện đại (Magic Link, OAuth2, Auth Code Flow) với backend thực tế bằng Next.js, SQLite và JOSE.
 
-First, run the development server:
+## ✨ Tính năng nổi bật
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Magic Link**: Luồng đăng nhập không mật khẩu với animation Server Log chi tiết.
+- **OAuth2**: Tích hợp Google và GitHub (Hỗ trợ cả Mock simulation và Real integration).
+- **Auth Code Flow Diagram**: Sơ đồ tương tác giải thích cơ chế trao đổi Code-to-Token.
+- **Real Backend**: Xử lý API Route Handlers, lưu Database SQLite, và bảo mật bằng JWT HttpOnly Cookies.
+- **Modern UI**: Thiết kế Glassmorphism, Dark mode, Framer Motion animations.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📖 Hướng dẫn sử dụng
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Vui lòng đọc file **[USER_GUIDE.md](./USER_GUIDE.md)** để biết cách cài đặt môi trường và trải nghiệm chi tiết các tính năng.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Stack công nghệ
 
-## Learn More
+- **Framework**: Next.js 16 (App Router)
+- **Styling**: Tailwind CSS v4, Lucide Icons
+- **Database**: SQLite (better-sqlite3)
+- **Auth**: JOSE (JWT), HttpOnly Cookies
+- **Animation**: Framer Motion
+- **Components**: shadcn/ui
 
-To learn more about Next.js, take a look at the following resources:
+## 🚀 Khởi chạy nhanh
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. `npm install`
+2. Tạo file `.env.local` theo mẫu trong hướng dẫn.
+3. `npm run dev`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+_Dự án được xây dựng phục vụ mục đích học tập và trình diễn._

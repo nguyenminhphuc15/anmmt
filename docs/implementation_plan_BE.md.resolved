@@ -1,0 +1,235 @@
+# Next.js Auth Backend — Implementation Plan
+
+## Bối cảnh
+
+Dự án hiện tại (`e:/project/anmmt`) là Next.js 16 + Tailwind, **hoàn toàn frontend-mock** (không có DB, không có API routes thực sự). Plan này sẽ thêm một **backend thực** vào ngay chính dự án đó bằng Next.js **Route Handlers** (App Router).
+
+> [!IMPORTANT]
+> **Không dùng NextAuth / Auth.js**. Tự implement từ đầu để demo rõ cơ chế từng flow.
+
+---
+
+## Tech Stack Bổ Sung
+
+| Thư viện | Mục đích |
+|---|---|
+| `better-sqlite3` | SQLite nhúng — không cần server DB riêng, đủ để demo |
+| `jose` | Sign / Verify JWT, tạo random token chuẩn |
+| `resend` | Gửi email thực (Magic Link). Có free tier |
+| `zod` | Validate request body tại API routes |
+
+---
+
+## Proposed Changes
+
+### 1. Cài đặt Dependencies
+
+```bash
+npm install better-sqlite3 jose resend zod
+npm install -D @types/better-sqlite3
+```
+
+---
+
+### 2. Database & Schema
+
+#### [NEW] `lib/db.ts`
+
+Khởi tạo SQLite và tạo 3 bảng:
+
+```sql
+-- Bảng người dùng
+CREATE TABLE IF NOT EXISTS users (
+  id        TEXT PRIMARY KEY,       -- UUID v4
+  email     TEXT UNIQUE NOT NULL,
+  name      TEXT,
+  provider  TEXT NOT NULL,          -- 'magic_link' | 'google' | 'github'
+  provider_id TEXT,                 -- ID từ OAuth provider
+  created_at INTEGER NOT NULL       -- unix timestamp
+);
+
+-- Bảng Token cho Magic Link
+CREATE TABLE IF NOT EXISTS magic_tokens (
+  token     TEXT PRIMARY KEY,       -- random 32-byte hex
+  user_id   TEXT NOT NULL,
+  email     TEXT NOT NULL,
+  expires_at INTEGER NOT NULL,      -- unix timestamp (15 phút)
+  used      INTEGER DEFAULT 0       -- 0 | 1, invalidate sau khi dùng
+);
+
+-- Bảng lưu state cho OAuth2 (CSRF protection)
+CREATE TABLE IF NOT EXISTS oauth_states (
+  state     TEXT PRIMARY KEY,       -- random 16-byte hex
+  provider  TEXT NOT NULL,          -- 'google' | 'github'
+  expires_at INTEGER NOT NULL       -- unix timestamp (10 phút)
+);
+```
+
+#### [NEW] `lib/jwt.ts`
+
+Helper sign/verify JWT dùng `jose`:
+
+```typescript
+// Payload: { sub: userId, email, method, iat, exp }
+signJWT(payload, expiresIn = '24h') → Promise<string>
+verifyJWT(token) → Promise<JWTPayload>
+```
+
+---
+
+### 3. API Routes (Route Handlers)
+
+#### Magic Link
+
+| Route | Method | Mô tả |
+|---|---|---|
+| `app/api/auth/magic-link/request/route.ts` | POST | Nhận `{email}`, tạo token, gửi email |
+| `app/api/auth/magic-link/callback/route.ts` | GET | Nhận `?token=`, xác minh, phát JWT, redirect |
+
+**Flow chi tiết — Request:**
+1. Validate `email` bằng Zod
+2. `SELECT` user từ DB (tạo mới nếu chưa tồn tại)
+3. Tạo `token = randomBytes(32).hex` bằng `jose`
+4. Insert vào `magic_tokens` với `expires_at = now + 900s`
+5. Gửi email qua `resend` chứa URL: `/api/auth/magic-link/callback?token=TOKEN`
+6. Return `{ success: true }`
+
+**Flow chi tiết — Callback:**
+1. Đọc `?token` từ searchParams
+2. `SELECT` token từ `magic_tokens` WHERE `token = ?` AND `used = 0` AND `expires_at > now`
+3. Nếu không khớp → redirect `/login?error=invalid_token`
+4. SET `used = 1` (invalidate ngay)
+5. Sign JWT với `{ sub: user_id, email, method: 'magic_link' }`
+6. Set cookie `auth_token` (HttpOnly, Secure, SameSite=Lax)
+7. Redirect `/dashboard`
+
+---
+
+#### OAuth2 — Google & GitHub
+
+| Route | Method | Mô tả |
+|---|---|---|
+| `app/api/auth/oauth/redirect/route.ts` | GET | Tạo state, build URL, redirect tới provider |
+| `app/api/auth/oauth/callback/route.ts` | GET | Nhận code, exchange token, upsert user, phát JWT |
+
+**Query params:** `?provider=google` hoặc `?provider=github`
+
+**Flow — Redirect:**
+1. Validate `provider`
+2. Tạo `state = randomBytes(16).hex`, lưu vào `oauth_states` (TTL 10p)
+3. Build Authorization URL:
+   - Google: `accounts.google.com/o/oauth2/v2/auth?client_id=...&scope=openid email profile`
+   - GitHub: `github.com/login/oauth/authorize?client_id=...&scope=read:user,user:email`
+4. Redirect browser đến URL đó
+
+**Flow — Callback:**
+1. Kiểm tra `state` trong DB (CSRF protection), xoá ngay sau khi dùng
+2. POST `code` lên provider để lấy `access_token`
+3. GET user info từ provider API
+4. Upsert user vào DB (`INSERT OR REPLACE`)
+5. Sign JWT → Set cookie → Redirect `/dashboard`
+
+---
+
+#### Authorization Code Flow (Demo Diagram)
+
+| Route | Method | Mô tả |
+|---|---|---|
+| `app/api/auth/code-flow/authorize/route.ts` | GET | Simulate Auth Server phát authorization code |
+| `app/api/auth/code-flow/token/route.ts` | POST | Simulate exchange code → access token |
+
+*Đây là API **tự-mô-phỏng** (app vừa là Client vừa là Auth Server) để feed data trực tiếp cho diagram tương tác.*
+
+---
+
+### 4. Middleware & Session
+
+#### [NEW] `middleware.ts`
+
+```typescript
+// Bảo vệ route /dashboard
+// Đọc cookie 'auth_token', verify JWT
+// Nếu invalid → redirect /login
+export const config = { matcher: ['/dashboard'] }
+```
+
+#### [MODIFY] `lib/session.ts`
+
+Giữ nguyên `sessionStorage` helpers (dùng cho client-side display), thêm hàm `getServerSession()` đọc cookie từ server component.
+
+---
+
+### 5. Environment Variables
+
+#### [NEW] `.env.local`
+
+```env
+# JWT
+JWT_SECRET=<random 32+ char string>
+
+# Magic Link
+RESEND_API_KEY=re_...
+MAGIC_LINK_BASE_URL=http://localhost:3000
+
+# Google OAuth
+GOOGLE_CLIENT_ID=...
+GOOGLE_CLIENT_SECRET=...
+GOOGLE_REDIRECT_URI=http://localhost:3000/api/auth/oauth/callback?provider=google
+
+# GitHub OAuth
+GITHUB_CLIENT_ID=...
+GITHUB_CLIENT_SECRET=...
+GITHUB_REDIRECT_URI=http://localhost:3000/api/auth/oauth/callback?provider=github
+```
+
+---
+
+### 6. Updated Frontend
+
+#### [MODIFY] `app/demo/magic-link/page.tsx`
+
+- Bước 2 (server processing): Gọi thực `POST /api/auth/magic-link/request`
+- Hiển thị Server Log animation sau khi nhận response
+- Bước 4 (callback): Link trong email preview trỏ thực tới `/api/auth/magic-link/callback?token=...`
+
+#### [MODIFY] `app/demo/oauth/page.tsx`
+
+- Nút "Login with Google/GitHub" gọi thực `GET /api/auth/oauth/redirect?provider=...`
+- Browser redirect thật tới Google/GitHub consent screen
+
+#### [MODIFY] `app/demo/auth-code-flow/page.tsx`
+
+- Mỗi step gọi API diagram (`/api/auth/code-flow/*`) để lấy data thực
+
+---
+
+## Security Checklist
+
+- [x] HttpOnly cookie (JWT không đọc được từ JS)
+- [x] Magic Link token 1 lần dùng, TTL 15p
+- [x] OAuth state parameter chống CSRF
+- [x] Zod validation tất cả input API
+- [x] Token hex 32 bytes (~256-bit entropy)
+
+---
+
+## Verification Plan
+
+### Automated
+
+```bash
+# Test API bằng curl
+curl -X POST http://localhost:3000/api/auth/magic-link/request \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com"}'
+
+# Expected: {"success":true,"message":"Email sent"}
+```
+
+### Manual
+
+1. **Magic Link**: Nhập email → nhận email thực (Resend) → click link → vào dashboard
+2. **Google OAuth**: Click "Login with Google" → redirect thật → consent → về dashboard
+3. **GitHub OAuth**: Tương tự
+4. **Protected Route**: Vào `/dashboard` khi chưa login → bị redirect `/login`
+5. **Token Invalidation**: Dùng Magic Link URL 2 lần → lần 2 báo lỗi `invalid_token`
