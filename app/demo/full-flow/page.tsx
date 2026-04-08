@@ -126,6 +126,8 @@ export default function FullFlowPage() {
   const [challenge, setChallenge] = useState("");
   const [authCode, setAuthCode] = useState("");
   const [apiResponse, setApiResponse] = useState<any>(null);
+  const [lastRequest, setLastRequest] = useState<any>(null);
+  const [lastResponse, setLastResponse] = useState<any>(null);
   const [logs, setLogs] = useState<
     { msg: string; type: "req" | "res" | "db" }[]
   >([]);
@@ -144,8 +146,10 @@ export default function FullFlowPage() {
   // Actions
   const initPkce = async () => {
     setLoading(true);
+    setLastRequest({ method: "GET", url: "/api/auth/pkce/challenge" });
     const res = await fetch("/api/auth/pkce/challenge");
     const json = await res.json();
+    setLastResponse(json);
     setVerifier(json.code_verifier);
     setChallenge(json.code_challenge);
     addLog(
@@ -162,16 +166,23 @@ export default function FullFlowPage() {
 
   const getFullAuthorize = async () => {
     setLoading(true);
+    const body = {
+      code_challenge: challenge,
+      email: "demo-user@flow.com",
+    };
+    setLastRequest({
+      method: "POST",
+      url: "/api/auth/full-flow/authorize",
+      body,
+    });
     addLog(`GET /authorize?challenge=${challenge}&scope=openid`, "req");
     const res = await fetch("/api/auth/full-flow/authorize", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        code_challenge: challenge,
-        email: "demo-user@flow.com",
-      }),
+      body: JSON.stringify(body),
     });
     const json = await res.json();
+    setLastResponse(json);
     addLog(`DB: INSERT INTO auth_codes (code, challenge)`, "db");
     addLog(`Received Auth Code: ${json.code}`, "res");
     setAuthCode(json.code);
@@ -181,17 +192,20 @@ export default function FullFlowPage() {
 
   const exchangeToken = async () => {
     setLoading(true);
+    const body = {
+      code: authCode,
+      code_verifier: verifier,
+      client_id: "demo_client",
+    };
+    setLastRequest({ method: "POST", url: "/api/auth/full-flow/token", body });
     addLog(`POST /token (code=${authCode}, verifier=...)`, "req");
     const res = await fetch("/api/auth/full-flow/token", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        code: authCode,
-        code_verifier: verifier,
-        client_id: "demo_client",
-      }),
+      body: JSON.stringify(body),
     });
     const json = await res.json();
+    setLastResponse(json);
     if (json.access_token) {
       addLog(`DB: SELECT FROM auth_codes -> PKCE VERIFY SUCCESS`, "db");
       addLog(`DB: DELETE code`, "db");
@@ -209,25 +223,37 @@ export default function FullFlowPage() {
 
   const callProtected = async (tokenOverride?: string) => {
     const t = tokenOverride || tokens.access_token;
+    setLastRequest({
+      method: "GET",
+      url: "/api/auth/protected-resource",
+      headers: { Authorization: `Bearer ${t?.substring(0, 10)}...` },
+    });
     addLog(`GET /protected-resource (Bearer ${t?.substring(0, 10)}...)`, "req");
     const res = await fetch("/api/auth/protected-resource", {
       headers: { Authorization: `Bearer ${t}` },
     });
     const json = await res.json();
+    setLastResponse(json);
     setApiResponse({ status: res.status, data: json });
     addLog(`Response: ${res.status} ${res.statusText}`, "res");
     if (res.status === 200 && currentStep === 5) setCurrentStep(6);
-    if (res.status === 401 && currentStep === 7) setCurrentStep(8);
+    if (res.status === 401 && (currentStep === 7 || currentStep === 11)) {
+      if (currentStep === 7) setCurrentStep(8);
+      if (currentStep === 11) setCurrentStep(12);
+    }
   };
 
   const introspect = async () => {
+    const body = { token: tokens.access_token };
+    setLastRequest({ method: "POST", url: "/api/auth/introspect", body });
     addLog(`POST /introspect (token=...)`, "req");
     const res = await fetch("/api/auth/introspect", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: tokens.access_token }),
+      body: JSON.stringify(body),
     });
     const json = await res.json();
+    setLastResponse(json);
     addLog(
       `RS Logic: Check DB revoked_tokens -> Status: ${json.active ? "ACTIVE" : "INACTIVE"}`,
       "db",
@@ -238,6 +264,12 @@ export default function FullFlowPage() {
 
   const handleRefresh = async () => {
     setLoading(true);
+    const body = { refresh_token: tokens.refresh_token };
+    setLastRequest({
+      method: "POST",
+      url: "/api/auth/full-flow/refresh",
+      body,
+    });
     addLog(
       `POST /refresh (rt=${tokens.refresh_token?.substring(0, 8)}...)`,
       "req",
@@ -245,9 +277,10 @@ export default function FullFlowPage() {
     const res = await fetch("/api/auth/full-flow/refresh", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ refresh_token: tokens.refresh_token }),
+      body: JSON.stringify(body),
     });
     const json = await res.json();
+    setLastResponse(json);
     if (json.access_token) {
       addLog(`DB: UPDATE refresh_tokens SET used=1`, "db");
       addLog(`DB: INSERT new refresh_token`, "db");
@@ -260,12 +293,16 @@ export default function FullFlowPage() {
 
   const handleLogout = async () => {
     setLoading(true);
+    const body = { token: tokens.access_token };
+    setLastRequest({ method: "POST", url: "/api/auth/revoke", body });
     addLog(`POST /revoke (token=...)`, "req");
-    await fetch("/api/auth/revoke", {
+    const res = await fetch("/api/auth/revoke", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ token: tokens.access_token }),
+      body: JSON.stringify(body),
     });
+    const json = await res.json();
+    setLastResponse(json);
     addLog(`DB: INSERT INTO revoked_tokens`, "db");
     addLog(`Session revoked locally and server-side`, "res");
     setCurrentStep(11);
@@ -332,6 +369,14 @@ export default function FullFlowPage() {
           {/* Interaction Column */}
           <div className="xl:col-span-8 flex flex-col gap-6">
             <div className="glass p-8 rounded-[32px] border-white/5 flex-1 min-h-[400px] flex flex-col items-center justify-center text-center relative overflow-hidden">
+              {/* Visual indicator for which step is active */}
+              <div className="absolute top-6 left-6 flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                <span className="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">
+                  Active Step {currentStep} / 12
+                </span>
+              </div>
+
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentStep}
@@ -397,7 +442,7 @@ export default function FullFlowPage() {
                       <Lock className="w-16 h-16 text-green-400 mx-auto" />
                       <h2 className="text-2xl font-bold">Token Active!</h2>
                       <p className="text-slate-400 text-sm">
-                        SS dụng Access Token để truy cập dữ liệu bảo mật.
+                        Sử dụng Access Token để truy cập dữ liệu bảo mật.
                       </p>
                       <Button
                         onClick={() => callProtected()}
@@ -518,13 +563,15 @@ export default function FullFlowPage() {
                         Send Invalid Request
                       </Button>
                       {apiResponse && apiResponse.status === 401 && (
-                        <Button
-                          variant="link"
-                          onClick={() => setCurrentStep(12)}
-                          className="text-indigo-400 pt-4"
-                        >
-                          Proceed to Finish
-                        </Button>
+                        <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+                          <Button
+                            variant="link"
+                            onClick={() => setCurrentStep(12)}
+                            className="text-indigo-400 pt-4"
+                          >
+                            Proceed to Finish →
+                          </Button>
+                        </div>
                       )}
                     </>
                   )}
@@ -551,10 +598,11 @@ export default function FullFlowPage() {
               <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-indigo-500/5 blur-[80px] rounded-full" />
             </div>
 
-            {/* Live Monitor / DB State */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-64">
-              <div className="glass-darker rounded-2xl border border-white/5 flex flex-col">
-                <div className="p-3 border-b border-white/5 flex items-center justify-between">
+            {/* Live Monitor / HTTP Inspector */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[400px]">
+              {/* Column 1: Logs */}
+              <div className="glass-darker rounded-2xl border border-white/5 flex flex-col overflow-hidden">
+                <div className="p-3 bg-white/5 border-b border-white/5 flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
                     <Terminal className="w-3 h-3 text-indigo-400" /> Server Logs
                   </span>
@@ -578,27 +626,65 @@ export default function FullFlowPage() {
                       {L.msg}
                     </div>
                   ))}
-                  {logs.length === 0 && (
-                    <div className="text-slate-700 italic">
-                      No activity logs...
+                </div>
+              </div>
+
+              {/* Column 2: HTTP Inspector */}
+              <div className="glass-darker rounded-2xl border border-white/5 flex flex-col overflow-hidden">
+                <div className="p-3 bg-white/5 border-b border-white/5 flex items-center gap-2">
+                  <Search className="w-3 h-3 text-blue-400" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                    HTTP Inspector
+                  </span>
+                </div>
+                <div className="p-4 overflow-auto font-mono text-[9px] flex-1 space-y-4 custom-scrollbar">
+                  {lastRequest && (
+                    <div className="space-y-1.5">
+                      <div className="text-blue-400 font-bold uppercase underline">
+                        Last Request
+                      </div>
+                      <div className="text-slate-300">
+                        {lastRequest.method} {lastRequest.url}
+                      </div>
+                      {lastRequest.body && (
+                        <pre className="p-2 bg-indigo-500/5 border border-white/5 rounded text-indigo-300">
+                          {JSON.stringify(lastRequest.body, null, 2)}
+                        </pre>
+                      )}
+                    </div>
+                  )}
+                  {lastResponse && (
+                    <div className="space-y-1.5 border-t border-white/5 pt-4">
+                      <div className="text-green-400 font-bold uppercase underline">
+                        Last Response JSON
+                      </div>
+                      <pre className="p-2 bg-green-500/5 border border-white/5 rounded text-green-300">
+                        {JSON.stringify(lastResponse, null, 2)}
+                      </pre>
+                    </div>
+                  )}
+                  {!lastRequest && (
+                    <div className="h-full flex items-center justify-center text-slate-700 italic">
+                      Perform an action to inspect HTTP traffic
                     </div>
                   )}
                 </div>
               </div>
 
-              <div className="glass-darker rounded-2xl border border-white/5 flex flex-col">
-                <div className="p-3 border-b border-white/5 flex items-center gap-2">
-                  <Database className="w-3 h-3 text-indigo-400" />
+              {/* Column 3: Memory State */}
+              <div className="glass-darker rounded-2xl border border-white/5 flex flex-col overflow-hidden">
+                <div className="p-3 bg-white/5 border-b border-white/5 flex items-center gap-2">
+                  <Database className="w-3 h-3 text-amber-400" />
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                    Live State (Memory)
+                    Memory State
                   </span>
                 </div>
-                <div className="p-4 space-y-3 font-mono text-[10px]">
+                <div className="p-4 space-y-4 font-mono text-[10px]">
                   <div className="space-y-1">
                     <div className="text-slate-500 uppercase font-bold text-[9px]">
                       Auth Code
                     </div>
-                    <div className="text-amber-400/80 truncate bg-amber-500/5 p-1 rounded">
+                    <div className="text-amber-400/80 break-all bg-amber-500/5 p-2 rounded border border-amber-500/10">
                       {authCode || "null"}
                     </div>
                   </div>
@@ -606,15 +692,17 @@ export default function FullFlowPage() {
                     <div className="text-slate-500 uppercase font-bold text-[9px]">
                       Access Token
                     </div>
-                    <div className="text-indigo-400/80 truncate bg-indigo-500/5 p-1 rounded">
-                      {tokens.access_token || "null"}
+                    <div className="text-indigo-400/80 break-all bg-indigo-500/5 p-2 rounded border border-indigo-500/10">
+                      {tokens.access_token
+                        ? tokens.access_token.substring(0, 40) + "..."
+                        : "null"}
                     </div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-slate-500 uppercase font-bold text-[9px]">
                       Refresh Token
                     </div>
-                    <div className="text-blue-400/80 truncate bg-blue-500/5 p-1 rounded">
+                    <div className="text-blue-400/80 break-all bg-blue-500/5 p-2 rounded border border-blue-500/10">
                       {tokens.refresh_token || "null"}
                     </div>
                   </div>
