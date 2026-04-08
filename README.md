@@ -7,6 +7,7 @@ Một ứng dụng demo tương tác cao, giúp hiểu rõ cơ chế của các 
 - **Magic Link**: Luồng đăng nhập không mật khẩu với animation Server Log chi tiết.
 - **OAuth2**: Tích hợp Google và GitHub (Hỗ trợ cả Mock simulation và Real integration).
 - **Auth Code Flow Diagram**: Sơ đồ tương tác giải thích cơ chế trao đổi Code-to-Token.
+- **Advanced Standards**: PKCE, OIDC, Token Introspection và Revocation thực tế.
 - **Real Backend**: Xử lý API Route Handlers, lưu Database SQLite, và bảo mật bằng JWT HttpOnly Cookies.
 - **Modern UI**: Thiết kế Glassmorphism, Dark mode, Framer Motion animations.
 

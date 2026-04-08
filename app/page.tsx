@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, Key, Fingerprint, ArrowRight, ShieldCheck } from "lucide-react";
+import {
+  Mail,
+  Key,
+  Fingerprint,
+  ArrowRight,
+  ShieldCheck,
+  Zap,
+} from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -40,6 +47,24 @@ const flows = [
     href: "/demo/auth-code-flow",
     color: "from-emerald-500/20 to-teal-500/20",
     iconColor: "text-emerald-400",
+  },
+  {
+    title: "Advanced Standards",
+    description:
+      "Deep dive into PKCE, OIDC, Introspection, and Token Revocation.",
+    icon: ShieldCheck,
+    href: "/demo/advanced",
+    color: "from-indigo-500/20 to-blue-500/20",
+    iconColor: "text-indigo-400",
+  },
+  {
+    title: "Integrated Full Flow",
+    description:
+      "A complete 12-step lifecycle demo: PKCE, OIDC, Refresh Rotation, and Revocation.",
+    icon: Zap,
+    href: "/demo/full-flow",
+    color: "from-amber-500/20 to-orange-500/20",
+    iconColor: "text-amber-400",
   },
 ];
 

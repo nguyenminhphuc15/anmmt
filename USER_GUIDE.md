@@ -62,6 +62,21 @@ Dành cho mục đích giáo dục, giải thích cơ chế "bí mật" đằng 
 - **Cách dùng**: Nhấn "Tiếp theo" để đi qua từng bước.
 - **Tính năng Real API**: Tại các bước quan trọng (bước 2 và 4), nhấn nút **"Execute Real API Step"**. Lúc này, ứng dụng sẽ gọi tới API backend thực sự để lấy mã code và token, hiển thị dữ liệu JSON thô mà Server nhận được.
 
+### 4. Advanced Standards (Các chuẩn bảo mật nâng cao)
+
+Module này đào sâu vào các cơ chế bảo mật chuyên sâu trong doanh nghiệp.
+
+- **PKCE (Proof Key for Code Exchange)**:
+  - Mô phỏng băm SHA-256 để tạo Challenge.
+  - Giải thích cách bảo vệ Client (Mobile/SPA) khi không thể giữ Client Secret bí mật.
+- **OIDC (OpenID Connect)**:
+  - Phân tích cấu trúc **ID Token (JWT)** gồm 3 phần: Header, Payload, Signature.
+  - Xem tài liệu cấu hình server chuẩn `.well-known/openid-configuration`.
+- **Token Introspection (RFC 7662)**:
+  - Demo cách Resource Server kiểm tra trạng thái Token trực tiếp với Auth Server.
+- **Token Revocation (RFC 7009)**:
+  - Giả lập việc thu hồi Token. Một khi đã revoke, bạn sẽ thấy API trả về lỗi **401 Unauthorized** khi cố gắng truy cập.
+
 ---
 
 ## 🛡️ Giám Sát & Bảo Mật
@@ -78,7 +93,8 @@ Sau khi đăng nhập thành công, bạn sẽ được chuyển đến **Dashbo
 ## 📂 Cấu trúc Kỹ thuật (Cho Developer)
 
 - **Database**: `auth_demo.db` (SQLite) - Được tạo tự động khi chạy app.
-- **Backend logic**: Nằm tại `app/api/auth/*`.
+- **Backend logic**: Nằm tại `app/api/auth/*` (Gồm login, oauth, pkce, oidc, và resource simulation).
+- **Components**: Các component tương tác tại `components/magic-link`, `components/oauth`, `components/auth-code-flow` và `components/advanced`.
 - **Middleware**: `middleware.ts` xử lý bảo vệ route `/dashboard`.
 - **Security**: Token được lưu trong **HttpOnly Cookie**, không thể bị đánh cắp bởi mã độc JavaScript.
 

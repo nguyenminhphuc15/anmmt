@@ -30,6 +30,32 @@ db.exec(`
     provider  TEXT NOT NULL,
     expires_at INTEGER NOT NULL
   );
+
+  CREATE TABLE IF NOT EXISTS revoked_tokens (
+    token_hash  TEXT PRIMARY KEY,
+    revoked_at  INTEGER NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS pkce_challenges (
+    code_verifier    TEXT PRIMARY KEY,
+    code_challenge   TEXT NOT NULL,
+    created_at       INTEGER NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS auth_codes (
+    code            TEXT PRIMARY KEY,
+    code_challenge  TEXT NOT NULL,
+    user_email      TEXT NOT NULL,
+    expires_at      INTEGER NOT NULL,
+    used            INTEGER DEFAULT 0
+  );
+
+  CREATE TABLE IF NOT EXISTS refresh_tokens (
+    token_hash  TEXT PRIMARY KEY,
+    user_id     TEXT NOT NULL,
+    expires_at  INTEGER NOT NULL,
+    used        INTEGER DEFAULT 0
+  );
 `);
 
 export default db;
