@@ -58,11 +58,11 @@ const flows = [
     iconColor: "text-indigo-400",
   },
   {
-    title: "Integrated Full Flow",
+    title: "OIDC Deep-Dive",
     description:
-      "A complete 12-step lifecycle demo: PKCE, OIDC, Refresh Rotation, and Revocation.",
+      "Show chi tiết từng bước theo luồng sequenceDiagram chuẩn PKCE & OIDC.",
     icon: Zap,
-    href: "/demo/full-flow",
+    href: "/demo/oidc-sequence",
     color: "from-amber-500/20 to-orange-500/20",
     iconColor: "text-amber-400",
   },

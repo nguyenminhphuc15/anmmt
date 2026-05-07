@@ -56,6 +56,21 @@ db.exec(`
     expires_at  INTEGER NOT NULL,
     used        INTEGER DEFAULT 0
   );
+
+  CREATE TABLE IF NOT EXISTS oidc_flows (
+    state           TEXT PRIMARY KEY,
+    nonce           TEXT NOT NULL,
+    code_verifier   TEXT NOT NULL,
+    provider        TEXT NOT NULL,
+    expires_at      INTEGER NOT NULL
+  );
+
+  CREATE TABLE IF NOT EXISTS logs (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    timestamp   INTEGER NOT NULL,
+    type        TEXT NOT NULL,
+    message     TEXT NOT NULL
+  );
 `);
 
 export default db;
