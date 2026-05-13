@@ -1,0 +1,36 @@
+[2026-04-16T16:13:37.364Z] [INFO] Incoming magic link request for: ntnhan1207@gmail.com
+[2026-04-16T16:13:37.373Z] [DB] New user created in DB: ntnhan1207@gmail.com
+[2026-04-16T16:13:37.381Z] [DB] Magic token generated and saved for: ntnhan1207@gmail.com
+[2026-04-16T16:13:37.384Z] [INFO] MOCK EMAIL LOG: To: ntnhan1207@gmail.com | URL: http://localhost:3000/api/auth/magic-link/callback?token=9b3b37cd0b1c2ca8623e10274751a8c155bd1a91dbda6806bc877d5218aea319
+[2026-04-16T16:19:05.202Z] [INFO] Incoming magic link request for: ntnhan1207@gmail.com
+[2026-04-16T16:19:05.204Z] [DB] Magic token generated and saved for: ntnhan1207@gmail.com
+[2026-04-16T16:19:05.206Z] [INFO] MOCK EMAIL LOG: To: ntnhan1207@gmail.com | URL: http://localhost:3000/api/auth/magic-link/callback?token=757592deac857ebd36089086c3e4bb8d7a36f84434d53cb5e4ab0efca0dab1db
+[2026-04-16T18:04:08.642Z] [INFO] Token exchange request received for code: 93841295...
+[2026-04-16T18:04:08.649Z] [INFO] PKCE verification success
+[2026-04-16T18:04:08.669Z] [DB] Tokens issued for user: demo-user@flow.com. Access & Refresh tokens generated.
+[2026-04-16T18:04:16.278Z] [DB] Token rotation successful for user: user_2uh2k4. New RT issued.
+[2026-04-16T18:15:28.981Z] [INFO] Incoming magic link request for: ntnhan1207@gmail.com
+[2026-04-16T18:15:28.986Z] [DB] Magic token generated and saved for: ntnhan1207@gmail.com
+[2026-04-16T18:15:28.988Z] [INFO] MOCK EMAIL LOG: To: ntnhan1207@gmail.com | URL: http://localhost:3000/api/auth/magic-link/callback?token=29b1d35602c7e0c2e6d0068da3b13dd4c4de6371e989bf6267c35b4c75a5bd07
+[2026-04-16T18:57:29.951Z] [INFO] Incoming magic link request for: ntnhan1207@gmail.com
+[2026-04-16T18:57:29.959Z] [DB] Magic token generated and saved for: ntnhan1207@gmail.com
+[2026-04-16T18:57:29.965Z] [INFO] MOCK EMAIL LOG: To: ntnhan1207@gmail.com | URL: http://localhost:3000/api/auth/magic-link/callback?token=8ade020a740c2d643c52c2a8c3144eb0f1fb75b56588aa929c804644f7fb5a6c
+[2026-04-16T19:57:49.712Z] [INFO] Incoming magic link request for: ntnhan1207@gmail.com
+[2026-04-16T19:57:49.735Z] [DB] Magic token generated and saved for: ntnhan1207@gmail.com
+[2026-04-16T19:57:49.739Z] [INFO] MOCK EMAIL LOG: To: ntnhan1207@gmail.com | URL: http://localhost:3000/api/auth/magic-link/callback?token=89ce3cf31382d24885275b8825ee81e75ec8c1cfaef427dc76b196dda3138a71
+[2026-04-20T17:18:41.451Z] [INFO] Incoming magic link request for: ntnhan1207@gmail.com
+[2026-04-20T17:18:41.473Z] [DB] Magic token generated and saved for: ntnhan1207@gmail.com
+[2026-04-20T17:18:41.476Z] [INFO] MOCK EMAIL LOG: To: ntnhan1207@gmail.com | URL: http://localhost:3000/api/auth/magic-link/callback?token=03e7b11c8920c54406efed01c00ee1de54b7abd6348df5e68f8017afa1a5f2cc
+[2026-04-21T13:09:05.049Z] [INFO] Incoming magic link request for: ntnhan1207@gmail.com
+[2026-04-21T13:09:05.061Z] [DB] Magic token generated and saved for: ntnhan1207@gmail.com
+[2026-04-21T13:09:05.797Z] [INFO] Real email sent via Resend to: ntnhan1207@gmail.com
+[2026-04-21T13:11:56.498Z] [INFO] Token exchange request received for code: 9581ffab...
+[2026-04-21T13:11:56.502Z] [INFO] PKCE verification success
+[2026-04-21T13:11:56.512Z] [DB] Tokens issued for user: demo-user@flow.com. Access & Refresh tokens generated.
+[2026-04-21T13:12:00.128Z] [DB] Token rotation successful for user: user_5i13k. New RT issued.
+[2026-05-10T12:41:27.873Z] [INFO] Incoming magic link request for: ntnhan1207@gmail.com
+[2026-05-10T12:41:27.892Z] [DB] Magic token generated and saved for: ntnhan1207@gmail.com
+[2026-05-10T12:41:28.610Z] [INFO] Real email sent via Resend to: ntnhan1207@gmail.com
+[2026-05-10T17:52:00.055Z] [INFO] Incoming magic link request for: ntnhan1207@gmail.com
+[2026-05-10T17:52:00.067Z] [DB] Magic token generated and saved for: ntnhan1207@gmail.com
+[2026-05-10T17:52:00.895Z] [INFO] Real email sent via Resend to: ntnhan1207@gmail.com
