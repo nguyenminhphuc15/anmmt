@@ -1,14 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import {
   ShieldCheck,
   Zap,
-  Lock,
   ArrowRight,
   Mail,
-  Layers,
   Fingerprint,
+  FileCode,
 } from "lucide-react";
 import Link from "next/link";
 import Nav from "@/components/nav";
@@ -32,14 +31,14 @@ const flows = [
     badge: "Passwordless",
   },
   {
-    title: "OIDC Interactive",
-    description:
-      "Visualizing toàn bộ sequence diagram của OpenID Connect. Hỗ trợ Real Google & GitHub login.",
-    icon: Fingerprint,
-    href: "/demo/oidc-sequence",
-    color: "from-indigo-600 to-purple-600",
-    badge: "Social Login Included",
-  },
+  title: "OIDC Interactive",
+  description:
+    "Visualizing toàn bộ sequence diagram của OpenID Connect. Hỗ trợ Real Google & GitHub login.",
+  icon: FileCode,
+  href: "/demo/auth-code-flow",
+  color: "from-indigo-600 to-purple-600",
+  badge: "Social Login Included",
+},
   {
     title: "Security Standards",
     description:
@@ -48,6 +47,14 @@ const flows = [
     href: "/demo/advanced",
     color: "from-purple-600 to-pink-600",
     badge: "Enterprise Ready",
+  },
+  {
+    title: "Passkey",
+    description: "Log in using Passkey. Secure against phishing.",
+    icon: Fingerprint,
+    href: "/demo/passkey",
+    color: "from-emerald-500/20 to-green-500/20",
+    iconColor: "text-emerald-400",
   },
 ];
 
@@ -61,7 +68,7 @@ const container = {
   },
 };
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: {
     opacity: 1,
