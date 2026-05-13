@@ -19,12 +19,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // Thêm suppressHydrationWarning vào html
     <html
       lang="en"
       className={`${inter.variable} dark antialiased`}
       style={{ colorScheme: "dark" }}
+      suppressHydrationWarning
     >
-      <body className="min-h-screen bg-background text-foreground font-sans">
+      {/* Thêm suppressHydrationWarning vào body */}
+      <body 
+        className="min-h-screen bg-background text-foreground font-sans"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

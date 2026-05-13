@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Link, Globe } from "lucide-react";
+import { Mail, Link, Globe, Fingerprint } from "lucide-react"; // Đã thêm Fingerprint
 import {
   Card,
   CardHeader,
@@ -12,7 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 interface MethodSelectorProps {
-  onSelect: (method: "magic-link" | "google" | "github") => void;
+  // Bổ sung thêm "passkey" vào danh sách method hợp lệ
+  onSelect: (method: "magic-link" | "google" | "github" | "passkey") => void;
 }
 
 export default function MethodSelector({ onSelect }: MethodSelectorProps) {
@@ -79,6 +80,29 @@ export default function MethodSelector({ onSelect }: MethodSelectorProps) {
             <div className="font-semibold">GitHub Profile</div>
             <div className="text-xs text-muted-foreground">
               Đăng nhập bằng tài khoản GitHub
+            </div>
+          </div>
+        </Button>
+      </motion.div>
+
+      {/* NÚT PASSKEY ĐƯỢC THÊM VÀO ĐÂY */}
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.4 }} // Delay 0.4 để trượt ra cuối cùng
+      >
+        <Button
+          variant="outline"
+          className="w-full h-14 justify-start gap-4 glass group hover:border-emerald-500/50"
+          onClick={() => onSelect("passkey")}
+        >
+          <div className="w-8 h-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+            <Fingerprint className="w-4 h-4" />
+          </div>
+          <div className="text-left">
+            <div className="font-semibold">Passkey</div>
+            <div className="text-xs text-muted-foreground">
+              Đăng nhập bằng Passkey
             </div>
           </div>
         </Button>

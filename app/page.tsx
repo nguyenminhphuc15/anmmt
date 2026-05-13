@@ -9,6 +9,7 @@ import {
   ArrowRight,
   ShieldCheck,
   Zap,
+  FileCode,
 } from "lucide-react";
 import {
   Card,
@@ -43,7 +44,7 @@ const flows = [
     title: "Auth Code Flow",
     description:
       "Interactive visualization of the OIDC Authorization Code grant.",
-    icon: Fingerprint,
+    icon: FileCode,
     href: "/demo/auth-code-flow",
     color: "from-emerald-500/20 to-teal-500/20",
     iconColor: "text-emerald-400",
@@ -65,6 +66,14 @@ const flows = [
     href: "/demo/oidc-sequence",
     color: "from-amber-500/20 to-orange-500/20",
     iconColor: "text-amber-400",
+  },
+  {
+    title: "Passkey",
+    description: "Log in using Passkey. Secure against phishing.",
+    icon: Fingerprint,
+    href: "/demo/passkey",
+    color: "from-emerald-500/20 to-green-500/20",
+    iconColor: "text-emerald-400",
   },
 ];
 
