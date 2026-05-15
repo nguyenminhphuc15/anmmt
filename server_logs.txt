@@ -21,3 +21,25 @@
 [2026-05-07T04:28:13.513Z] [REQ] [FE] Simulating Stage 2: User Redirect to Provider.
 [2026-05-07T04:28:15.510Z] [RES] [FE] Mock Provider: User authenticated and authorized.
 [2026-05-07T04:28:18.458Z] [RES] [FE] Stage 3: Token Exchange with provider success.
+[2026-05-10T13:57:08.883Z] [INFO] Incoming magic link request for: nguyenphucminh880@gmail.com
+[2026-05-10T13:57:08.888Z] [DB] Magic token generated and saved for: nguyenphucminh880@gmail.com
+[2026-05-10T13:57:10.013Z] [INFO] Real email sent via Resend to: nguyenphucminh880@gmail.com
+[2026-05-10T13:58:07.304Z] [REQ] [FE] Initiating google flow...
+[2026-05-10T13:58:07.386Z] [INFO] [OIDC Init] Starting flow for provider: google
+[2026-05-10T13:58:07.388Z] [INFO] [OIDC Init] Generated state: faa538dc9cb51edad70d89b662b47ec9, nonce: 49c7c10f429e0e59dabb928160902b25
+[2026-05-10T13:58:07.392Z] [INFO] [OIDC Init] Created PKCE Proof: challenge=6rP4ROUDef...
+[2026-05-10T13:58:07.394Z] [DB] [DB] INSERT INTO oidc_flows (state, nonce, code_verifier, ...)
+[2026-05-10T13:58:07.430Z] [RES] [FE] Step 1: State & Nonce generated.
+[2026-05-10T13:58:07.444Z] [RES] [FE] Step 1: PKCE Verifier & Challenge created.
+[2026-05-10T13:58:07.476Z] [DB] [FE] DB: INSERT INTO oidc_flows (state, nonce, verifier, ...)
+[2026-05-10T13:58:07.489Z] [REQ] [FE] Redirecting user to: https://accounts.google.com/o/oauth2/v2/...
+[2026-05-10T13:58:15.888Z] [INFO] [OIDC Callback] Received callback with state: faa538dc9cb51edad70d89b662b47ec9
+[2026-05-10T13:58:15.891Z] [DB] [DB] SELECT * FROM oidc_flows WHERE state = ...
+[2026-05-10T13:58:15.893Z] [INFO] [OIDC Callback] Exchanging code for tokens at https://oauth2.googleapis.com/token
+[2026-05-10T13:58:15.894Z] [INFO] [OIDC Callback] Sending code_verifier: ohomL...
+[2026-05-10T13:58:16.305Z] [INFO] [OIDC Callback] Token exchange SUCCESS. Received Access Token & ID Token
+[2026-05-10T13:58:16.307Z] [INFO] [OIDC Callback] Verifying Nonce...
+[2026-05-10T13:58:16.308Z] [DB] [DB] INSERT INTO users (email: google_user@demo.com)
+[2026-05-10T13:58:16.311Z] [INFO] [OIDC Callback] Creating session and setting HttpOnly cookie
+[2026-05-10T13:58:16.330Z] [DB] [DB] DELETE FROM oidc_flows WHERE state = ...
+[2026-05-10T13:58:16.331Z] [INFO] [OIDC Callback] Success! Redirecting user to demo page.
