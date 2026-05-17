@@ -67,7 +67,7 @@ function OAuthContent() {
     <div className="w-full max-w-lg">
       <Link
         href="/login"
-        className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-8 transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 mb-8 transition-colors"
       >
         <ArrowLeft className="w-4 h-4" /> Quay lại đăng nhập
       </Link>
@@ -76,7 +76,7 @@ function OAuthContent() {
         <h1 className="text-3xl font-bold mb-2 text-glow">
           OAuth2 — Real vs Mock
         </h1>
-        <p className="text-slate-400">
+        <p className="text-slate-600">
           Bạn có thể chạy luồng mô phỏng ngay tại đây hoặc thực hiện Redirect
           thật tới Provider.
         </p>
@@ -101,7 +101,7 @@ function OAuthContent() {
         </div>
       </header>
 
-      <div className="glass relative p-8 rounded-3xl border-white/5 min-h-[450px] flex flex-col justify-center overflow-hidden">
+      <div className="glass relative p-8 rounded-3xl border-slate-200 min-h-[450px] flex flex-col justify-center overflow-hidden">
         <AnimatePresence mode="wait">
           {step === "select" && (
             <motion.div
@@ -147,10 +147,10 @@ function OAuthContent() {
 
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t border-white/5" />
+                  <span className="w-full border-t border-slate-200" />
                 </div>
                 <div className="relative flex justify-center text-[10px] uppercase font-bold text-slate-600">
-                  <span className="bg-[#0a0a0f] px-2">Hoặc dùng API thực</span>
+                  <span className="bg-slate-50 px-2">Hoặc dùng API thực</span>
                 </div>
               </div>
 
@@ -182,12 +182,12 @@ function OAuthContent() {
               </div>
               <div className="space-y-3">
                 <h3 className="text-xl font-bold">Đang trao đổi Token...</h3>
-                <div className="font-mono text-[10px] text-slate-500 bg-black/30 p-4 rounded-xl border border-white/5 space-y-1 text-left">
+                <div className="font-mono text-[10px] text-slate-500 bg-black/30 p-4 rounded-xl border border-slate-200 space-y-1 text-left">
                   <div className="text-indigo-400">
                     POST /api/auth/oauth/callback?code=...
                   </div>
                   <div>Grant Type: authorization_code</div>
-                  <div className="truncate text-slate-400 italic">
+                  <div className="truncate text-slate-600 italic">
                     // Server-to-server exchange is happening now
                   </div>
                 </div>
@@ -221,7 +221,7 @@ function OAuthContent() {
 
 export default function OAuthPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0f]">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Nav />
       <main className="flex-1 flex flex-col items-center py-12 px-4">
         <Suspense

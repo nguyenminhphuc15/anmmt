@@ -114,7 +114,7 @@ const steps: Step[] = [
     title: "Hoàn tất",
     actor: "End",
     desc: "Hoàn thành chu kỳ sống của một session chuẩn bảo mật.",
-    color: "text-slate-400",
+    color: "text-slate-600",
   },
 ];
 
@@ -318,7 +318,7 @@ export default function FullFlowPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0f]">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Nav />
       <main className="flex-1 container mx-auto py-12 px-4 max-w-7xl">
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
@@ -326,7 +326,7 @@ export default function FullFlowPage() {
           <div className="xl:col-span-4 space-y-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-2"
+              className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 mb-2"
             >
               <ArrowLeft className="w-4 h-4" /> Home
             </Link>
@@ -337,11 +337,11 @@ export default function FullFlowPage() {
               </p>
             </div>
 
-            <div className="relative space-y-1 pl-4 border-l border-white/5 pr-4 py-2">
+            <div className="relative space-y-1 pl-4 border-l border-slate-200 pr-4 py-2">
               {steps.map((s) => (
                 <div
                   key={s.id}
-                  className={`relative pl-8 py-3 rounded-xl transition-all duration-300 ${currentStep === s.id ? "bg-indigo-500/10 border border-indigo-500/20" : "opacity-40"}`}
+                  className={`relative pl-8 py-3 rounded-xl transition-all duration-300 ${currentStep === s.id ? "bg-indigo-50 border border-indigo-500/20" : "opacity-40"}`}
                 >
                   <div
                     className={`absolute left-[-5px] top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full border-2 ${currentStep >= s.id ? "bg-indigo-500 border-indigo-400" : "bg-slate-800 border-slate-700"}`}
@@ -352,11 +352,11 @@ export default function FullFlowPage() {
                     >
                       {s.actor}
                     </span>
-                    <span className="text-xs font-bold text-slate-200">
+                    <span className="text-xs font-bold text-slate-800">
                       {s.title}
                     </span>
                     {currentStep === s.id && (
-                      <p className="text-[10px] text-slate-400 mt-1">
+                      <p className="text-[10px] text-slate-600 mt-1">
                         {s.desc}
                       </p>
                     )}
@@ -368,7 +368,7 @@ export default function FullFlowPage() {
 
           {/* Interaction Column */}
           <div className="xl:col-span-8 flex flex-col gap-6">
-            <div className="glass p-8 rounded-[32px] border-white/5 flex-1 min-h-[400px] flex flex-col items-center justify-center text-center relative overflow-hidden">
+            <div className="glass p-8 rounded-[32px] border-slate-200 flex-1 min-h-[400px] flex flex-col items-center justify-center text-center relative overflow-hidden">
               {/* Visual indicator for which step is active */}
               <div className="absolute top-6 left-6 flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
@@ -390,7 +390,7 @@ export default function FullFlowPage() {
                       <h2 className="text-2xl font-bold">
                         Bắt đầu luồng bảo mật
                       </h2>
-                      <p className="text-slate-400 text-sm italic">
+                      <p className="text-slate-600 text-sm italic">
                         Hệ thống sẽ thực hiện PKCE tự động để bảo vệ mã code.
                       </p>
                       <Button
@@ -408,7 +408,7 @@ export default function FullFlowPage() {
                       <h2 className="text-2xl font-bold">
                         Authorization Request
                       </h2>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-slate-600 text-sm">
                         Gửi challenge và state tới server để xin cấp code.
                       </p>
                       <Button
@@ -424,7 +424,7 @@ export default function FullFlowPage() {
                     <>
                       <Key className="w-16 h-16 text-indigo-400 mx-auto" />
                       <h2 className="text-2xl font-bold">Exchange Bundle</h2>
-                      <div className="p-4 bg-white/5 rounded-xl text-[11px] font-mono text-left space-y-1">
+                      <div className="p-4 bg-slate-100 rounded-xl text-[11px] font-mono text-left space-y-1">
                         <div>code: {authCode}</div>
                         <div>verifier: {verifier.substring(0, 15)}...</div>
                       </div>
@@ -441,7 +441,7 @@ export default function FullFlowPage() {
                     <>
                       <Lock className="w-16 h-16 text-green-400 mx-auto" />
                       <h2 className="text-2xl font-bold">Token Active!</h2>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-slate-600 text-sm">
                         Sử dụng Access Token để truy cập dữ liệu bảo mật.
                       </p>
                       <Button
@@ -459,7 +459,7 @@ export default function FullFlowPage() {
                       <h2 className="text-2xl font-bold">
                         Introspection Check
                       </h2>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-slate-600 text-sm">
                         RS thực hiện kiểm tra token thô với Auth Server.
                       </p>
                       <Button
@@ -477,7 +477,7 @@ export default function FullFlowPage() {
                       <h2 className="text-2xl font-bold">
                         Thời gian trôi qua...
                       </h2>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-slate-600 text-sm">
                         Giả sử Access Token đã hết hạn (expired).
                       </p>
                       <Button
@@ -495,7 +495,7 @@ export default function FullFlowPage() {
                       <h2 className="text-2xl font-bold">
                         Refresh Token Exchange
                       </h2>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-slate-600 text-sm">
                         Hệ thống phát hiện 401 và tự động dùng Refresh Token.
                       </p>
                       <Button
@@ -511,7 +511,7 @@ export default function FullFlowPage() {
                     <>
                       <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto" />
                       <h2 className="text-2xl font-bold">Sử dụng Token mới</h2>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-slate-600 text-sm">
                         Mọi thứ đã được khôi phục, người dùng không cần đăng
                         nhập lại.
                       </p>
@@ -537,7 +537,7 @@ export default function FullFlowPage() {
                     <>
                       <Trash2 className="w-16 h-16 text-red-400 mx-auto" />
                       <h2 className="text-2xl font-bold">Revoke Session</h2>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-slate-600 text-sm">
                         Hủy bỏ toàn bộ quyền truy cập của các token này.
                       </p>
                       <Button
@@ -553,7 +553,7 @@ export default function FullFlowPage() {
                     <>
                       <ShieldCheck className="w-16 h-16 text-slate-500 mx-auto" />
                       <h2 className="text-2xl font-bold">Final Block Test</h2>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-slate-600 text-sm">
                         Dùng Access Token cũ gọi API lần cuối.
                       </p>
                       <Button
@@ -582,7 +582,7 @@ export default function FullFlowPage() {
                       <h2 className="text-3xl font-bold text-glow">
                         Flow Complete!
                       </h2>
-                      <p className="text-slate-400 text-sm">
+                      <p className="text-slate-600 text-sm">
                         Bạn đã đi qua toàn bộ vòng đời của một Auth Session hiện
                         đại.
                       </p>
@@ -601,8 +601,8 @@ export default function FullFlowPage() {
             {/* Live Monitor / HTTP Inspector */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[400px]">
               {/* Column 1: Logs */}
-              <div className="glass-darker rounded-2xl border border-white/5 flex flex-col overflow-hidden">
-                <div className="p-3 bg-white/5 border-b border-white/5 flex items-center justify-between">
+              <div className="glass-darker rounded-2xl border border-slate-200 flex flex-col overflow-hidden">
+                <div className="p-3 bg-slate-100 border-b border-slate-200 flex items-center justify-between">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 flex items-center gap-2">
                     <Terminal className="w-3 h-3 text-indigo-400" /> Server Logs
                   </span>
@@ -619,7 +619,7 @@ export default function FullFlowPage() {
                           ? "text-indigo-300"
                           : L.type === "db"
                             ? "text-amber-500"
-                            : "text-slate-400"
+                            : "text-slate-600"
                       }
                     >
                       {L.type === "req" ? ">" : L.type === "db" ? "#" : "<"}{" "}
@@ -630,8 +630,8 @@ export default function FullFlowPage() {
               </div>
 
               {/* Column 2: HTTP Inspector */}
-              <div className="glass-darker rounded-2xl border border-white/5 flex flex-col overflow-hidden">
-                <div className="p-3 bg-white/5 border-b border-white/5 flex items-center gap-2">
+              <div className="glass-darker rounded-2xl border border-slate-200 flex flex-col overflow-hidden">
+                <div className="p-3 bg-slate-100 border-b border-slate-200 flex items-center gap-2">
                   <Search className="w-3 h-3 text-blue-400" />
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                     HTTP Inspector
@@ -643,22 +643,22 @@ export default function FullFlowPage() {
                       <div className="text-blue-400 font-bold uppercase underline">
                         Last Request
                       </div>
-                      <div className="text-slate-300">
+                      <div className="text-slate-700">
                         {lastRequest.method} {lastRequest.url}
                       </div>
                       {lastRequest.body && (
-                        <pre className="p-2 bg-indigo-500/5 border border-white/5 rounded text-indigo-300">
+                        <pre className="p-2 bg-indigo-500/5 border border-slate-200 rounded text-indigo-300">
                           {JSON.stringify(lastRequest.body, null, 2)}
                         </pre>
                       )}
                     </div>
                   )}
                   {lastResponse && (
-                    <div className="space-y-1.5 border-t border-white/5 pt-4">
+                    <div className="space-y-1.5 border-t border-slate-200 pt-4">
                       <div className="text-green-400 font-bold uppercase underline">
                         Last Response JSON
                       </div>
-                      <pre className="p-2 bg-green-500/5 border border-white/5 rounded text-green-300">
+                      <pre className="p-2 bg-green-500/5 border border-slate-200 rounded text-green-300">
                         {JSON.stringify(lastResponse, null, 2)}
                       </pre>
                     </div>
@@ -672,8 +672,8 @@ export default function FullFlowPage() {
               </div>
 
               {/* Column 3: Memory State */}
-              <div className="glass-darker rounded-2xl border border-white/5 flex flex-col overflow-hidden">
-                <div className="p-3 bg-white/5 border-b border-white/5 flex items-center gap-2">
+              <div className="glass-darker rounded-2xl border border-slate-200 flex flex-col overflow-hidden">
+                <div className="p-3 bg-slate-100 border-b border-slate-200 flex items-center gap-2">
                   <Database className="w-3 h-3 text-amber-400" />
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
                     Memory State
@@ -713,7 +713,7 @@ export default function FullFlowPage() {
         </div>
       </main>
 
-      <footer className="py-8 border-t border-white/5 text-center">
+      <footer className="py-8 border-t border-slate-200 text-center">
         <p className="text-[10px] text-slate-600 uppercase tracking-widest font-bold">
           Interactive Auth Flow Documentation v1.0
         </p>

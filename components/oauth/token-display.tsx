@@ -33,7 +33,7 @@ export default function TokenDisplay({
           <Check className="w-6 h-6 text-green-500" />
         </div>
         <h3 className="text-xl font-bold">Xác thực thành công</h3>
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-600">
           Đã nhận được Access Token từ API của{" "}
           {provider === "google" ? "Google" : "GitHub"}.
         </p>
@@ -45,7 +45,7 @@ export default function TokenDisplay({
             Bearer Token
           </div>
         </div>
-        <pre className="glass p-6 rounded-2xl border-white/5 text-[11px] font-mono text-indigo-300 overflow-x-auto">
+        <pre className="glass p-6 rounded-2xl border-slate-200 text-[11px] font-mono text-indigo-300 overflow-x-auto">
           {JSON.stringify(mockToken, null, 2)}
         </pre>
       </div>

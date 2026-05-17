@@ -73,13 +73,13 @@ export default function AuthCodeFlowPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0f]">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Nav />
       <main className="flex-1 container mx-auto py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 mb-8 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 mb-8 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" /> Trang chủ
           </Link>
@@ -88,7 +88,7 @@ export default function AuthCodeFlowPage() {
             <h1 className="text-4xl font-bold mb-4 text-glow">
               Auth Code Flow Visualization
             </h1>
-            <p className="text-slate-400 max-w-2xl">
+            <p className="text-slate-600 max-w-2xl">
               OAuth 2.0 Authorization Code là flow an toàn nhất, sử dụng backend
               server để trao đổi token.
             </p>
@@ -97,7 +97,7 @@ export default function AuthCodeFlowPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <div className="lg:col-span-8 space-y-8">
               {/* Control Bar */}
-              <div className="flex items-center justify-between glass p-4 rounded-2xl border-white/5">
+              <div className="flex items-center justify-between glass p-4 rounded-2xl border-slate-200">
                 <Button
                   variant="outline"
                   size="sm"
@@ -142,20 +142,20 @@ export default function AuthCodeFlowPage() {
               </div>
 
               {/* Diagram Area */}
-              <div className="glass p-8 rounded-3xl border-white/5 relative bg-gradient-to-br from-indigo-500/5 to-transparent min-h-[500px]">
+              <div className="glass p-8 rounded-3xl border-slate-200 relative bg-gradient-to-br from-indigo-500/5 to-transparent min-h-[500px]">
                 <FlowDiagram currentStep={currentStep.id} />
               </div>
             </div>
 
             <div className="lg:col-span-4 space-y-6">
-              <div className="glass p-6 rounded-3xl border-white/5 space-y-6">
+              <div className="glass p-6 rounded-3xl border-slate-200 space-y-6">
                 <StepDetail step={currentStep} />
 
                 {(currentStep.id === 2 || currentStep.id === 4) && (
-                  <div className="pt-4 border-t border-white/5">
+                  <div className="pt-4 border-t border-slate-200">
                     <Button
                       variant="secondary"
-                      className="w-full h-12 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 gap-2"
+                      className="w-full h-12 bg-indigo-50 hover:bg-indigo-100 text-indigo-400 border border-indigo-500/30 gap-2"
                       onClick={executeApi}
                       disabled={isExecuting}
                     >
@@ -176,7 +176,7 @@ export default function AuthCodeFlowPage() {
                         <div className="flex items-center gap-2 text-indigo-400 border-b border-indigo-500/10 pb-2 mb-2">
                           <Box className="w-3 h-3" /> <span>API Response</span>
                         </div>
-                        <pre className="text-slate-300 break-all whitespace-pre-wrap">
+                        <pre className="text-slate-700 break-all whitespace-pre-wrap">
                           {JSON.stringify(apiResponse, null, 2)}
                         </pre>
                       </motion.div>
@@ -185,7 +185,7 @@ export default function AuthCodeFlowPage() {
                 )}
               </div>
 
-              <div className="glass p-6 rounded-2xl border-white/5 bg-amber-500/5">
+              <div className="glass p-6 rounded-2xl border-slate-200 bg-amber-500/5">
                 <div className="flex gap-3 mb-3">
                   <TerminalIcon className="w-4 h-4 text-amber-500 shrink-0" />
                   <h4 className="text-xs font-bold uppercase tracking-wider text-amber-200/70">

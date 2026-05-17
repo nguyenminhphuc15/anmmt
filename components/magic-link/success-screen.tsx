@@ -23,26 +23,33 @@ export default function SuccessScreen({ email, onFinish }: SuccessScreenProps) {
       </motion.div>
 
       <div className="space-y-4">
-        <h3 className="text-2xl font-bold">Xác thực thành công!</h3>
-        <div className="flex items-center justify-center gap-3 glass p-4 rounded-2xl border-white/5">
-          <Avatar className="w-12 h-12 border border-indigo-500/30">
+        <h3 className="text-3xl font-black text-slate-900 tracking-tight">
+          Xác thực thành công!
+        </h3>
+        <div className="flex items-center justify-center gap-4 bg-slate-50 p-6 rounded-[24px] border-2 border-slate-100 shadow-sm">
+          <Avatar className="w-14 h-14 border-2 border-indigo-600 shadow-lg">
             <AvatarImage
               src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`}
             />
-            <AvatarFallback>{email.charAt(0).toUpperCase()}</AvatarFallback>
+            <AvatarFallback className="bg-indigo-600 text-white font-bold">
+              {email.charAt(0).toUpperCase()}
+            </AvatarFallback>
           </Avatar>
           <div className="text-left">
-            <div className="text-sm font-medium">{email}</div>
-            <div className="text-[10px] text-slate-500 uppercase tracking-wider">
+            <div className="text-base font-black text-slate-900">{email}</div>
+            <div className="text-[10px] text-indigo-600 uppercase font-black tracking-widest mt-1">
               Trạng thái: Đã đăng nhập
             </div>
           </div>
         </div>
       </div>
 
-      <Button onClick={onFinish} className="w-full h-12 gap-2 group">
-        Đi đến Dashboard{" "}
-        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+      <Button
+        onClick={onFinish}
+        className="w-full h-16 gap-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-black text-lg shadow-xl shadow-indigo-100 transition-all hover:scale-[1.02] group"
+      >
+        Đi đến Dashboard
+        <ArrowRight className="w-6 h-6 transition-transform group-hover:translate-x-1" />
       </Button>
     </div>
   );

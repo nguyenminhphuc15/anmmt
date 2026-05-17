@@ -43,3 +43,20 @@
 [2026-05-10T13:58:16.311Z] [INFO] [OIDC Callback] Creating session and setting HttpOnly cookie
 [2026-05-10T13:58:16.330Z] [DB] [DB] DELETE FROM oidc_flows WHERE state = ...
 [2026-05-10T13:58:16.331Z] [INFO] [OIDC Callback] Success! Redirecting user to demo page.
+[2026-05-15T09:19:17.059Z] [REQ] [FE] Initiating mock flow...
+[2026-05-15T09:19:17.115Z] [INFO] [OIDC Init] Starting flow for provider: google
+[2026-05-15T09:19:17.117Z] [INFO] [OIDC Init] Generated state: d1495c8925d92ae37201ce7558e513ea, nonce: 4df1d5f91a64c34dbfa7ba823b0264e3
+[2026-05-15T09:19:17.119Z] [INFO] [OIDC Init] Created PKCE Proof: challenge=geiPINVuKu...
+[2026-05-15T09:19:17.120Z] [DB] [DB] INSERT INTO oidc_flows (state, nonce, code_verifier, ...)
+[2026-05-15T09:19:17.142Z] [RES] [FE] Step 1: PKCE Verifier & Challenge created.
+[2026-05-15T09:19:17.155Z] [RES] [FE] Step 1: State & Nonce generated.
+[2026-05-15T09:19:17.166Z] [DB] [FE] DB: INSERT INTO oidc_flows (state, nonce, verifier, ...)
+[2026-05-15T09:19:17.185Z] [REQ] [FE] Simulating Stage 2: User Redirect to Provider.
+[2026-05-15T09:19:19.136Z] [RES] [FE] Mock Provider: User authenticated and authorized.
+[2026-05-15T09:19:22.136Z] [RES] [FE] Stage 3: Token Exchange with provider success.
+[2026-05-16T14:53:21.783Z] [INFO] Incoming magic link request for: nguyenphucminh880@gmail.com
+[2026-05-16T14:53:21.785Z] [DB] Magic token generated and saved for: nguyenphucminh880@gmail.com
+[2026-05-16T14:53:22.893Z] [INFO] Real email sent via Resend to: nguyenphucminh880@gmail.com
+[2026-05-16T15:34:40.878Z] [INFO] Incoming magic link request for: nguyenphucminh880@gmail.com
+[2026-05-16T15:34:40.880Z] [DB] Magic token generated and saved for: nguyenphucminh880@gmail.com
+[2026-05-16T15:34:41.620Z] [INFO] Real email sent via Resend to: nguyenphucminh880@gmail.com

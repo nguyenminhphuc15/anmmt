@@ -44,11 +44,11 @@ export default function OidcDemo() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4 space-y-4">
-          <div className="glass p-6 rounded-2xl border-white/5 space-y-4">
+          <div className="glass p-6 rounded-2xl border-slate-200 space-y-4">
             <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
               <Shield className="w-6 h-6 text-blue-400" />
             </div>
-            <h4 className="font-bold text-slate-200">
+            <h4 className="font-bold text-slate-800">
               Authentication vs Authorization
             </h4>
             <p className="text-xs text-slate-500 leading-relaxed">
@@ -81,7 +81,7 @@ export default function OidcDemo() {
 
         <div className="lg:col-span-8 space-y-6">
           {!oidcData ? (
-            <div className="h-full min-h-[300px] border-2 border-dashed border-white/5 rounded-3xl flex flex-col items-center justify-center text-slate-600">
+            <div className="h-full min-h-[300px] border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-600">
               <Info className="w-10 h-10 mb-4 opacity-20" />
               <p className="text-sm italic">
                 Thực hiện flow để xem cấu trúc Token
@@ -90,7 +90,7 @@ export default function OidcDemo() {
           ) : (
             <div className="space-y-6">
               {/* ID Token Visualizer */}
-              <div className="glass p-6 rounded-3xl border-white/5 space-y-4">
+              <div className="glass p-6 rounded-3xl border-slate-200 space-y-4">
                 <div className="flex items-center gap-2 text-blue-400 font-bold text-sm">
                   <Eye className="w-4 h-4" />{" "}
                   <span>ID Token Inspector (JWT)</span>

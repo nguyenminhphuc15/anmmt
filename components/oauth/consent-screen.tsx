@@ -19,9 +19,9 @@ export default function ConsentScreen({
   const isGoogle = provider === "google";
 
   return (
-    <div className="w-full max-w-sm mx-auto bg-[#16161e] border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
-      <div className="bg-black/20 p-6 text-center border-b border-white/5">
-        <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4 border border-white/10">
+    <div className="w-full max-w-sm mx-auto bg-[#16161e] border border-slate-200 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="bg-slate-50 p-6 text-center border-b border-slate-200">
+        <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4 border border-slate-200">
           {isGoogle ? (
             <Globe className="w-6 h-6 text-red-500" />
           ) : (
@@ -40,7 +40,7 @@ export default function ConsentScreen({
       <div className="p-6 space-y-6">
         <div className="space-y-4">
           <div className="flex items-start gap-3">
-            <div className="mt-1 w-5 h-5 rounded bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+            <div className="mt-1 w-5 h-5 rounded bg-indigo-50 flex items-center justify-center text-indigo-400">
               <User className="w-3 h-3" />
             </div>
             <div className="text-sm">

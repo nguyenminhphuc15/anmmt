@@ -57,24 +57,24 @@
 }
 
 .dark {
-  --background: #0a0a0f;
-  --foreground: #f1f5f9;
-  --card: rgba(15, 15, 25, 0.7);
-  --card-foreground: #f1f5f9;
-  --popover: #0a0a0f;
-  --popover-foreground: #f1f5f9;
+  --background: #f8fafc;
+  --foreground: #020617;
+  --card: #ffffff;
+  --card-foreground: #020617;
+  --popover: #ffffff;
+  --popover-foreground: #020617;
   --primary: #6366f1;
   --primary-foreground: #ffffff;
-  --secondary: #1e1e2e;
-  --secondary-foreground: #f1f5f9;
-  --muted: #1e1e2e;
-  --muted-foreground: #94a3b8;
-  --accent: #1e1e2e;
-  --accent-foreground: #f1f5f9;
-  --destructive: #7f1d1d;
-  --destructive-foreground: #f1f5f9;
-  --border: rgba(255, 255, 255, 0.1);
-  --input: rgba(255, 255, 255, 0.1);
+  --secondary: #f1f5f9;
+  --secondary-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
   --ring: #6366f1;
 }
 
@@ -89,12 +89,12 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/5 backdrop-blur-md border border-white/10;
+    @apply bg-white/70 backdrop-blur-md border border-slate-200 shadow-sm;
   }
   .glass-darker {
-    @apply bg-black/40 backdrop-blur-xl border border-white/5;
+    @apply bg-slate-50/80 backdrop-blur-xl border border-slate-200 shadow-md;
   }
   .text-glow {
-    text-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+    text-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
   }
 }

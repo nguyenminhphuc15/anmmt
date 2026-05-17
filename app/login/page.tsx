@@ -28,7 +28,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0f]">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Nav />
 
       <main className="flex-1 flex flex-col items-center justify-center p-4">
@@ -53,12 +53,12 @@ export default function LoginPage() {
             </p>
           </div>
 
-          <div className="glass p-8 rounded-3xl border-white/5 relative overflow-hidden">
+          <div className="glass p-8 rounded-3xl border-slate-200 relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-50" />
 
             <MethodSelector onSelect={handleSelect} />
 
-            <div className="mt-8 pt-8 border-t border-white/5 text-center">
+            <div className="mt-8 pt-8 border-t border-slate-200 text-center">
               <p className="text-xs text-slate-500">
                 Đây là ứng dụng mô phỏng. Không có dữ liệu thật nào được thu
                 thập hoặc lưu trữ trên máy chủ.

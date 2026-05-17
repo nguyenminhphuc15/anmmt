@@ -47,8 +47,8 @@ export default function IntrospectDemo() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-5 space-y-6">
-          <div className="glass p-6 rounded-2xl border-white/5 space-y-4">
-            <div className="flex items-center gap-2 text-slate-300 font-bold text-sm">
+          <div className="glass p-6 rounded-2xl border-slate-200 space-y-4">
+            <div className="flex items-center gap-2 text-slate-700 font-bold text-sm">
               <Lock className="w-4 h-4" /> <span>Hỏi Auth Server về Token</span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed">
@@ -61,7 +61,7 @@ export default function IntrospectDemo() {
                 placeholder="Dán Access Token vào đây..."
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
-                className="glass border-white/10 text-xs"
+                className="glass border-slate-200 text-xs"
               />
               <Button
                 onClick={handleIntrospect}
@@ -86,7 +86,7 @@ export default function IntrospectDemo() {
 
         <div className="lg:col-span-7">
           {!result ? (
-            <div className="h-full min-h-[250px] border-2 border-dashed border-white/5 rounded-3xl flex flex-col items-center justify-center text-slate-600">
+            <div className="h-full min-h-[250px] border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-600">
               <Database className="w-10 h-10 mb-4 opacity-20" />
               <p className="text-sm italic">Nhập token và nhấn kiểm tra</p>
             </div>
@@ -101,7 +101,7 @@ export default function IntrospectDemo() {
               >
                 <div className="flex items-center gap-4">
                   <div
-                    className={`w-12 h-12 rounded-2xl flex items-center justify-center ${result.active ? "bg-green-500/10 text-green-500" : "bg-red-500/10 text-red-500"}`}
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center ${result.active ? "bg-green-50 text-green-500" : "bg-red-500/10 text-red-500"}`}
                   >
                     {result.active ? (
                       <Unlock className="w-6 h-6" />
@@ -124,17 +124,17 @@ export default function IntrospectDemo() {
                   </div>
                 </div>
                 {result.active && (
-                  <div className="text-[10px] px-2 py-1 bg-green-500/10 text-green-400 rounded border border-green-500/20 font-bold">
+                  <div className="text-[10px] px-2 py-1 bg-green-50 text-green-400 rounded border border-green-500/20 font-bold">
                     200 OK
                   </div>
                 )}
               </div>
 
-              <div className="glass-darker p-6 rounded-3xl border border-white/5 space-y-4">
-                <div className="flex items-center gap-2 text-slate-400 font-bold text-[10px] uppercase tracking-wider">
+              <div className="glass-darker p-6 rounded-3xl border border-slate-200 space-y-4">
+                <div className="flex items-center gap-2 text-slate-600 font-bold text-[10px] uppercase tracking-wider">
                   <Terminal className="w-3 h-3" /> Introspection Response JSON
                 </div>
-                <pre className="bg-black/40 p-4 rounded-xl border border-white/5 text-[11px] text-slate-400 overflow-auto max-h-[300px]">
+                <pre className="bg-slate-100 p-4 rounded-xl border border-slate-200 text-[11px] text-slate-600 overflow-auto max-h-[300px]">
                   {JSON.stringify(result, null, 2)}
                 </pre>
               </div>

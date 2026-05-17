@@ -72,7 +72,7 @@ export default function RevocationDemo() {
       </div>
 
       {tokens.length === 0 ? (
-        <div className="h-64 border-2 border-dashed border-white/5 rounded-3xl flex flex-col items-center justify-center text-slate-600 space-y-4">
+        <div className="h-64 border-2 border-dashed border-slate-200 rounded-3xl flex flex-col items-center justify-center text-slate-600 space-y-4">
           <Key className="w-10 h-10 opacity-20" />
           <p className="text-sm">
             Nhấn nút bên trên để giả lập phát hành Tokens
@@ -88,7 +88,7 @@ export default function RevocationDemo() {
               <motion.div
                 key={i}
                 layout
-                className={`glass p-5 rounded-2xl border ${t.revoked ? "border-red-500/20 bg-red-500/5" : "border-white/5"} transition-colors relative overflow-hidden`}
+                className={`glass p-5 rounded-2xl border ${t.revoked ? "border-red-500/20 bg-red-500/5" : "border-slate-200"} transition-colors relative overflow-hidden`}
               >
                 {t.revoked && (
                   <div className="absolute inset-x-0 top-1/2 h-px bg-red-500/40 -rotate-2 z-10" />
@@ -96,13 +96,13 @@ export default function RevocationDemo() {
                 <div className="flex items-center justify-between gap-4 relative z-20">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center ${t.revoked ? "bg-red-500/10 text-red-500/40" : "bg-indigo-500/10 text-indigo-400"}`}
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center ${t.revoked ? "bg-red-500/10 text-red-500/40" : "bg-indigo-50 text-indigo-400"}`}
                     >
                       <Lock className="w-5 h-5" />
                     </div>
                     <div className="space-y-0.5">
                       <div
-                        className={`text-xs font-bold ${t.revoked ? "text-red-400/50" : "text-slate-200"}`}
+                        className={`text-xs font-bold ${t.revoked ? "text-red-400/50" : "text-slate-800"}`}
                       >
                         {t.type}
                       </div>
@@ -118,7 +118,7 @@ export default function RevocationDemo() {
                         <Button
                           size="icon"
                           variant="ghost"
-                          className="h-9 w-9 text-slate-500 hover:text-slate-200 hover:bg-white/5"
+                          className="h-9 w-9 text-slate-500 hover:text-slate-800 hover:bg-slate-100"
                           onClick={() => testAccess(t.val)}
                         >
                           <CheckCircle2 className="w-4 h-4" />
@@ -150,7 +150,7 @@ export default function RevocationDemo() {
             <h4 className="text-[10px] uppercase font-bold text-slate-500 tracking-widest pl-2">
               Resource Server Logs
             </h4>
-            <div className="glass-darker p-6 rounded-3xl border border-white/5 min-h-[300px] flex flex-col h-full font-mono text-[11px]">
+            <div className="glass-darker p-6 rounded-3xl border border-slate-200 min-h-[300px] flex flex-col h-full font-mono text-[11px]">
               <AnimatePresence mode="wait">
                 {!testResult ? (
                   <div className="h-full flex items-center justify-center text-slate-700 italic">
@@ -186,7 +186,7 @@ export default function RevocationDemo() {
                           <ShieldAlert className="w-4 h-4 text-red-500" />
                         )}
                       </div>
-                      <pre className="text-[10px] text-slate-400 overflow-auto">
+                      <pre className="text-[10px] text-slate-600 overflow-auto">
                         {JSON.stringify(testResult, null, 2)}
                       </pre>
                     </div>

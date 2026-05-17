@@ -45,7 +45,7 @@ export default function AdvancedAuthPage() {
   const [activeTab, setActiveTab] = useState<ActiveTab>("pkce");
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0f]">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Nav />
       <main className="flex-1 container mx-auto py-12 px-4 max-w-6xl">
         <div className="space-y-8">
@@ -53,14 +53,14 @@ export default function AdvancedAuthPage() {
             <div className="space-y-4">
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" /> Home
               </Link>
               <h1 className="text-4xl font-bold text-glow">
                 Advanced Auth Standards
               </h1>
-              <p className="text-slate-400 max-w-2xl">
+              <p className="text-slate-600 max-w-2xl">
                 Khám phá các tiêu chuẩn bảo mật hiện đại giúp bảo vệ dữ liệu
                 người dùng và hệ thống API trong môi trường thực tế.
               </p>
@@ -68,7 +68,7 @@ export default function AdvancedAuthPage() {
           </header>
 
           {/* Tab Navigation */}
-          <div className="flex flex-wrap gap-2 p-1.5 glass rounded-2xl border-white/5 bg-white/[0.02]">
+          <div className="flex flex-wrap gap-2 p-1.5 glass rounded-2xl border-slate-200 bg-slate-50">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
@@ -76,7 +76,7 @@ export default function AdvancedAuthPage() {
                 className={`flex-1 min-w-[140px] flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
                   activeTab === tab.id
                     ? "bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.1)]"
-                    : "text-slate-500 hover:text-slate-300 hover:bg-white/5 border border-transparent"
+                    : "text-slate-500 hover:text-slate-700 hover:bg-slate-100 border border-transparent"
                 }`}
               >
                 <tab.icon
@@ -95,7 +95,7 @@ export default function AdvancedAuthPage() {
           </div>
 
           {/* Content Area */}
-          <div className="glass p-8 md:p-10 rounded-[32px] border-white/5 min-h-[550px] relative overflow-hidden">
+          <div className="glass p-8 md:p-10 rounded-[32px] border-slate-200 min-h-[550px] relative overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -117,7 +117,7 @@ export default function AdvancedAuthPage() {
 
           {/* Expert Note */}
           <div className="p-6 rounded-2xl bg-indigo-500/[0.03] border border-indigo-500/10 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center shrink-0 border border-indigo-500/20">
+            <div className="w-10 h-10 rounded-full bg-indigo-50 flex items-center justify-center shrink-0 border border-indigo-500/20">
               <Box className="w-5 h-5 text-indigo-400" />
             </div>
             <div className="space-y-1">

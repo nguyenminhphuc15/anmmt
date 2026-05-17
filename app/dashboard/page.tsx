@@ -41,14 +41,14 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#0a0a0f] flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0a0a0f]">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <Nav />
       <main className="flex-1 container mx-auto py-12 px-4 space-y-12">
         {!session ? (
@@ -56,7 +56,7 @@ export default function DashboardPage() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="glass p-8 rounded-3xl border-white/5 text-center space-y-6"
+              className="glass p-8 rounded-3xl border-slate-200 text-center space-y-6"
             >
               <div className="w-16 h-16 bg-amber-500/10 rounded-2xl flex items-center justify-center mx-auto border border-amber-500/20">
                 <ShieldAlert className="w-8 h-8 text-amber-500" />
@@ -65,7 +65,7 @@ export default function DashboardPage() {
                 <h3 className="text-xl font-bold">
                   Phiên đăng nhập không hợp lệ
                 </h3>
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-slate-600">
                   Vui lòng thực hiện một luồng đăng nhập thực để xem Dashboard
                   này.
                 </p>
@@ -91,7 +91,7 @@ export default function DashboardPage() {
                   Giám sát Bảo mật Real-time
                 </h2>
                 <div className="flex gap-2">
-                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase">
+                  <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 border border-indigo-500/20 text-indigo-400 text-[10px] font-bold uppercase">
                     <Database className="w-3 h-3" /> persistence: sqlite
                   </div>
                   <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase">
@@ -103,7 +103,7 @@ export default function DashboardPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
-              <div className="glass p-8 rounded-3xl border-white/5 space-y-4 relative overflow-hidden group">
+              <div className="glass p-8 rounded-3xl border-slate-200 space-y-4 relative overflow-hidden group">
                 <div className="absolute -right-8 -bottom-8 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
                   <Lock className="w-48 h-48" />
                 </div>
@@ -114,7 +114,7 @@ export default function DashboardPage() {
                   Token này được verify tại Middleware trước khi cho phép truy
                   cập Dashboard.
                 </p>
-                <div className="bg-black/40 p-4 rounded-xl font-mono text-[10px] text-slate-400 border border-white/5 space-y-1">
+                <div className="bg-slate-100 p-4 rounded-xl font-mono text-[10px] text-slate-600 border border-slate-200 space-y-1">
                   <div className="text-indigo-300">
                     "sub": "{session.email}"
                   </div>
@@ -126,7 +126,7 @@ export default function DashboardPage() {
                   <div>"exp": {Math.floor(Date.now() / 1000) + 86400}</div>
                 </div>
               </div>
-              <div className="glass p-8 rounded-3xl border-white/5 space-y-4">
+              <div className="glass p-8 rounded-3xl border-slate-200 space-y-4">
                 <h4 className="font-bold text-indigo-400">Bảo mật thiết bị</h4>
                 <p className="text-xs text-slate-500 leading-relaxed">
                   Hệ thống đang theo dõi Device Fingerprint và IP ({session.ip})

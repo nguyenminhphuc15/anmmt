@@ -41,8 +41,8 @@ export default function LoginHistoryTable({
   ];
 
   return (
-    <div className="glass rounded-3xl border-white/5 overflow-hidden">
-      <div className="p-6 border-b border-white/5 flex items-center justify-between bg-white/5">
+    <div className="glass rounded-3xl border-slate-200 overflow-hidden">
+      <div className="p-6 border-b border-slate-200 flex items-center justify-between bg-slate-100">
         <h3 className="font-bold">Lịch sử đăng nhập</h3>
         <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">
           5 bản ghi gần nhất
@@ -50,8 +50,8 @@ export default function LoginHistoryTable({
       </div>
 
       <Table>
-        <TableHeader className="bg-black/20">
-          <TableRow className="border-white/5 hover:bg-transparent">
+        <TableHeader className="bg-slate-50">
+          <TableRow className="border-slate-200 hover:bg-transparent">
             <TableHead className="w-12 text-center">#</TableHead>
             <TableHead>Phương thức</TableHead>
             <TableHead>Email/Provider</TableHead>
@@ -65,10 +65,10 @@ export default function LoginHistoryTable({
           {history.map((row, idx) => (
             <TableRow
               key={row.id}
-              className={`border-white/5 transition-colors duration-200 ${
+              className={`border-slate-200 transition-colors duration-200 ${
                 "isCurrent" in row && row.isCurrent
-                  ? "bg-indigo-500/10 hover:bg-indigo-500/15"
-                  : "hover:bg-white/5"
+                  ? "bg-indigo-50 hover:bg-indigo-500/15"
+                  : "hover:bg-slate-100"
               }`}
             >
               <TableCell className="text-center font-mono text-[10px] text-slate-500">
@@ -88,17 +88,17 @@ export default function LoginHistoryTable({
                   <span className="text-xs font-medium">{row.method}</span>
                 </div>
               </TableCell>
-              <TableCell className="text-xs font-mono text-slate-300">
+              <TableCell className="text-xs font-mono text-slate-700">
                 {row.provider}
               </TableCell>
-              <TableCell className="text-xs text-slate-400">
+              <TableCell className="text-xs text-slate-600">
                 {row.time}
               </TableCell>
               <TableCell className="text-xs font-mono text-slate-500">
                 {row.ip}
               </TableCell>
               <TableCell>
-                <div className="flex items-center gap-1.5 text-[10px] text-slate-400">
+                <div className="flex items-center gap-1.5 text-[10px] text-slate-600">
                   {row.device.includes("Chrome") ? (
                     <Laptop className="w-3 h-3" />
                   ) : (
@@ -109,7 +109,7 @@ export default function LoginHistoryTable({
               </TableCell>
               <TableCell className="text-right">
                 {row.status === "success" ? (
-                  <Badge className="bg-green-500/10 text-green-500 border-green-500/20 pointer-events-none">
+                  <Badge className="bg-green-50 text-green-500 border-green-500/20 pointer-events-none">
                     <CheckCircle className="w-3 h-3 mr-1" /> Thành công
                   </Badge>
                 ) : (

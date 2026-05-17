@@ -18,7 +18,7 @@ export default function FlowDiagram({ currentStep }: FlowDiagramProps) {
   return (
     <div className="w-full h-64 relative mb-12 flex items-center justify-between px-6 pt-10">
       {/* Connector line */}
-      <div className="absolute top-[4.5rem] left-[10%] right-[10%] h-0.5 bg-white/5 border-b border-dashed border-white/10" />
+      <div className="absolute top-[4.5rem] left-[10%] right-[10%] h-0.5 bg-slate-100 border-b border-dashed border-slate-200" />
 
       {actors.map((actor, idx) => {
         const Icon = actor.icon;

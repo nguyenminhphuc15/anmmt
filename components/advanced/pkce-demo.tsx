@@ -50,7 +50,7 @@ export default function PkceDemo() {
         <h3 className="text-xl font-bold text-indigo-400">
           PKCE Extension (RFC 7636)
         </h3>
-        <span className="text-[10px] px-2 py-1 bg-indigo-500/10 border border-indigo-500/20 rounded uppercase font-bold text-indigo-400">
+        <span className="text-[10px] px-2 py-1 bg-indigo-50 border border-indigo-500/20 rounded uppercase font-bold text-indigo-400">
           Public Client Protection
         </span>
       </div>
@@ -62,10 +62,10 @@ export default function PkceDemo() {
             <div
               className={`relative pl-8 transition-opacity ${step === 1 ? "opacity-100" : "opacity-40"}`}
             >
-              <div className="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-[#0a0a0f] border-2 border-indigo-500 flex items-center justify-center">
+              <div className="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-slate-50 border-2 border-indigo-500 flex items-center justify-center">
                 <div className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
               </div>
-              <h4 className="text-sm font-bold text-slate-200 mb-2">
+              <h4 className="text-sm font-bold text-slate-800 mb-2">
                 Bước 1: Client tạo Verifier & Challenge
               </h4>
               <p className="text-xs text-slate-500 mb-4">
@@ -88,12 +88,12 @@ export default function PkceDemo() {
             <div
               className={`relative pl-8 transition-opacity ${step === 2 ? "opacity-100" : "opacity-40"}`}
             >
-              <div className="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-[#0a0a0f] border-2 border-slate-700 flex items-center justify-center">
+              <div className="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-slate-50 border-2 border-slate-700 flex items-center justify-center">
                 {step > 2 && (
                   <CheckCircle2 className="w-3 h-3 text-green-500" />
                 )}
               </div>
-              <h4 className="text-sm font-bold text-slate-200 mb-2">
+              <h4 className="text-sm font-bold text-slate-800 mb-2">
                 Bước 2: Gửi Authorization Request
               </h4>
               <p className="text-xs text-slate-500 mb-4">
@@ -116,8 +116,8 @@ export default function PkceDemo() {
             <div
               className={`relative pl-8 transition-opacity ${step === 3 ? "opacity-100" : "opacity-40"}`}
             >
-              <div className="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-[#0a0a0f] border-2 border-slate-700 flex items-center justify-center" />
-              <h4 className="text-sm font-bold text-slate-200 mb-2">
+              <div className="absolute -left-[11px] top-0 w-5 h-5 rounded-full bg-slate-50 border-2 border-slate-700 flex items-center justify-center" />
+              <h4 className="text-sm font-bold text-slate-800 mb-2">
                 Bước 3: Đổi Token bằng Verifier
               </h4>
               <p className="text-xs text-slate-500 mb-4">
@@ -139,10 +139,10 @@ export default function PkceDemo() {
         </div>
 
         {/* Visual Console */}
-        <div className="glass-darker rounded-2xl border border-white/5 overflow-hidden flex flex-col h-full">
-          <div className="bg-white/5 p-3 flex items-center gap-2 border-b border-white/5">
+        <div className="glass-darker rounded-2xl border border-slate-200 overflow-hidden flex flex-col h-full">
+          <div className="bg-slate-100 p-3 flex items-center gap-2 border-b border-slate-200">
             <Terminal className="w-3 h-3 text-indigo-400" />
-            <span className="text-[10px] font-bold uppercase text-slate-400">
+            <span className="text-[10px] font-bold uppercase text-slate-600">
               Browser Console / Math Engine
             </span>
           </div>
@@ -157,7 +157,7 @@ export default function PkceDemo() {
                   <div className="text-indigo-400">
                     // Client-side generation
                   </div>
-                  <div className="text-slate-300">
+                  <div className="text-slate-700">
                     verifier:{" "}
                     <span className="text-indigo-300 break-all">
                       {data.code_verifier}
@@ -166,7 +166,7 @@ export default function PkceDemo() {
                   <div className="text-slate-500 mt-4">
                     // SHA-256 Hashing...
                   </div>
-                  <div className="text-slate-300">
+                  <div className="text-slate-700">
                     challenge:{" "}
                     <span className="text-amber-300 break-all">
                       {data.code_challenge}
@@ -179,12 +179,12 @@ export default function PkceDemo() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-6 pt-6 border-t border-white/5 space-y-4"
+                  className="mt-6 pt-6 border-t border-slate-200 space-y-4"
                 >
                   <div className="text-green-400">
                     // Server Verification Response
                   </div>
-                  <pre className="p-4 bg-black/40 rounded-xl border border-white/5 text-slate-400">
+                  <pre className="p-4 bg-slate-100 rounded-xl border border-slate-200 text-slate-600">
                     {JSON.stringify(data.server_response, null, 2)}
                   </pre>
                   <div className="flex items-center gap-2 text-green-500 bg-green-500/5 p-3 rounded-lg border border-green-500/20">

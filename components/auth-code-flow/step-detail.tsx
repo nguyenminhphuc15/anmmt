@@ -36,7 +36,7 @@ export default function StepDetail({ step }: StepDetailProps) {
           </div>
         </div>
 
-        <p className="text-slate-400 text-sm leading-relaxed">
+        <p className="text-slate-600 text-sm leading-relaxed">
           {step.description}
         </p>
 
@@ -54,7 +54,7 @@ export default function StepDetail({ step }: StepDetailProps) {
           >
             <Copy className="w-3 h-3" />
           </Button>
-          <pre className="bg-black/40 border border-white/5 p-8 pt-10 rounded-xl font-mono text-[11px] text-indigo-300/90 overflow-x-auto">
+          <pre className="bg-slate-100 border border-slate-200 p-8 pt-10 rounded-xl font-mono text-[11px] text-indigo-300/90 overflow-x-auto">
             {step.code}
           </pre>
         </div>
