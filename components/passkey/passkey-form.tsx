@@ -16,7 +16,7 @@ export default function PasskeyForm({ onRegister, onLogin }: PasskeyFormProps) {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium text-slate-300">
+        <label htmlFor="email" className="text-sm font-medium text-slate-500">
           Địa chỉ Email (Để tạo Khóa mới)
         </label>
         <Input
@@ -32,7 +32,7 @@ export default function PasskeyForm({ onRegister, onLogin }: PasskeyFormProps) {
       <div className="flex gap-4">
         <Button 
           variant="outline" 
-          className="flex-1 h-12 gap-2 glass text-indigo-400 border-indigo-500/30 hover:bg-indigo-500/10"
+          className="flex-1 h-12 gap-2 glass text-indigo-400 border-indigo-500 hover:bg-indigo-500"
           onClick={() => onRegister(email)}
           disabled={!email}
         >
