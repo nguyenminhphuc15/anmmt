@@ -60,3 +60,49 @@
 [2026-05-16T15:34:40.878Z] [INFO] Incoming magic link request for: nguyenphucminh880@gmail.com
 [2026-05-16T15:34:40.880Z] [DB] Magic token generated and saved for: nguyenphucminh880@gmail.com
 [2026-05-16T15:34:41.620Z] [INFO] Real email sent via Resend to: nguyenphucminh880@gmail.com
+[2026-05-17T03:09:37.406Z] [INFO] Incoming magic link request for: nguyenphucminh880@gmail.com
+[2026-05-17T03:09:37.410Z] [DB] Magic token generated and saved for: nguyenphucminh880@gmail.com
+[2026-05-17T03:09:38.827Z] [INFO] Real email sent via Resend to: nguyenphucminh880@gmail.com
+[2026-05-17T03:10:34.852Z] [INFO] Incoming magic link request for: nguyenphucminh880@gmail.com
+[2026-05-17T03:10:34.853Z] [DB] Magic token generated and saved for: nguyenphucminh880@gmail.com
+[2026-05-17T03:10:36.072Z] [INFO] Real email sent via Resend to: nguyenphucminh880@gmail.com
+[2026-05-17T03:25:02.926Z] [REQ] [FE] Initiating mock flow...
+[2026-05-17T03:25:02.977Z] [INFO] [OIDC Init] Starting flow for provider: google
+[2026-05-17T03:25:02.979Z] [INFO] [OIDC Init] Generated state: f530377dd5d5463a8c9113e9c96430b8, nonce: 4235fa8244892dee9a977d06df440e4f
+[2026-05-17T03:25:02.980Z] [INFO] [OIDC Init] Created PKCE Proof: challenge=ndBpltV3P-...
+[2026-05-17T03:25:02.981Z] [DB] [DB] INSERT INTO oidc_flows (state, nonce, code_verifier, ...)
+[2026-05-17T03:25:02.999Z] [RES] [FE] Step 1: State & Nonce generated.
+[2026-05-17T03:25:03.009Z] [RES] [FE] Step 1: PKCE Verifier & Challenge created.
+[2026-05-17T03:25:03.033Z] [DB] [FE] DB: INSERT INTO oidc_flows (state, nonce, verifier, ...)
+[2026-05-17T03:25:03.042Z] [REQ] [FE] Simulating Stage 2: User Redirect to Provider.
+[2026-05-17T03:25:04.993Z] [RES] [FE] Mock Provider: User authenticated and authorized.
+[2026-05-17T03:25:07.994Z] [RES] [FE] Stage 3: Token Exchange with provider success.
+[2026-05-17T03:34:31.548Z] [REQ] [FE] Initiating google flow...
+[2026-05-17T03:34:31.603Z] [INFO] [OIDC Init] Starting flow for provider: google
+[2026-05-17T03:34:31.605Z] [INFO] [OIDC Init] Generated state: 4dea322ccad8beb62a0503fe0445fcb9, nonce: de21e7300582c8930a73452fc1b0bc6d
+[2026-05-17T03:34:31.606Z] [INFO] [OIDC Init] Created PKCE Proof: challenge=CgN0uvJhtO...
+[2026-05-17T03:34:31.609Z] [DB] [DB] INSERT INTO oidc_flows (state, nonce, code_verifier, ...)
+[2026-05-17T03:34:31.632Z] [RES] [FE] Step 1: State & Nonce generated.
+[2026-05-17T03:34:31.642Z] [RES] [FE] Step 1: PKCE Verifier & Challenge created.
+[2026-05-17T03:34:31.663Z] [DB] [FE] DB: INSERT INTO oidc_flows (state, nonce, verifier, ...)
+[2026-05-17T03:34:31.671Z] [REQ] [FE] Redirecting user to: https://accounts.google.com/o/oauth2/v2/...
+[2026-05-17T03:34:43.771Z] [REQ] [FE] Initiating google flow...
+[2026-05-17T03:34:43.779Z] [INFO] [OIDC Init] Starting flow for provider: google
+[2026-05-17T03:34:43.780Z] [INFO] [OIDC Init] Generated state: ba29dee4bd8728d0a3b0f45bca165a8e, nonce: 31184afb6ee6186470c69db333bbb8bf
+[2026-05-17T03:34:43.781Z] [INFO] [OIDC Init] Created PKCE Proof: challenge=qUTRhVMeTV...
+[2026-05-17T03:34:43.782Z] [DB] [DB] INSERT INTO oidc_flows (state, nonce, code_verifier, ...)
+[2026-05-17T03:34:43.801Z] [RES] [FE] Step 1: PKCE Verifier & Challenge created.
+[2026-05-17T03:34:43.811Z] [DB] [FE] DB: INSERT INTO oidc_flows (state, nonce, verifier, ...)
+[2026-05-17T03:34:43.819Z] [RES] [FE] Step 1: State & Nonce generated.
+[2026-05-17T03:34:43.830Z] [REQ] [FE] Redirecting user to: https://accounts.google.com/o/oauth2/v2/...
+[2026-05-17T03:35:32.242Z] [REQ] [FE] Initiating mock flow...
+[2026-05-17T03:35:32.251Z] [INFO] [OIDC Init] Starting flow for provider: google
+[2026-05-17T03:35:32.252Z] [INFO] [OIDC Init] Generated state: d217d6f41d25e5103161260d23101535, nonce: 3269d51bb52c8a371a148645ab7e9b01
+[2026-05-17T03:35:32.254Z] [INFO] [OIDC Init] Created PKCE Proof: challenge=Yi4V0jVhN0...
+[2026-05-17T03:35:32.255Z] [DB] [DB] INSERT INTO oidc_flows (state, nonce, code_verifier, ...)
+[2026-05-17T03:35:32.275Z] [DB] [FE] DB: INSERT INTO oidc_flows (state, nonce, verifier, ...)
+[2026-05-17T03:35:32.283Z] [RES] [FE] Step 1: PKCE Verifier & Challenge created.
+[2026-05-17T03:35:32.293Z] [RES] [FE] Step 1: State & Nonce generated.
+[2026-05-17T03:35:32.305Z] [REQ] [FE] Simulating Stage 2: User Redirect to Provider.
+[2026-05-17T03:35:34.274Z] [RES] [FE] Mock Provider: User authenticated and authorized.
+[2026-05-17T03:35:37.270Z] [RES] [FE] Stage 3: Token Exchange with provider success.
