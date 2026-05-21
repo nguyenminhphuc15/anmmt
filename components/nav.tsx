@@ -8,6 +8,7 @@ import {
   Key,
   Mail,
   Fingerprint,
+  FileCode,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -16,7 +17,8 @@ const navItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Magic Link", href: "/demo/magic-link", icon: Mail },
   { name: "OAuth2", href: "/demo/oauth", icon: Key },
-  { name: "Auth Code", href: "/demo/auth-code-flow", icon: Fingerprint },
+  { name: "Passkey", href: "/demo/passkey", icon: Fingerprint },
+  { name: "Auth Code", href: "/demo/auth-code-flow", icon: FileCode },
 ];
 
 export default function Nav() {

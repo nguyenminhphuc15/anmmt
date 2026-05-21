@@ -57,20 +57,32 @@ db.exec(`
     used        INTEGER DEFAULT 0
   );
 
-  CREATE TABLE IF NOT EXISTS oidc_flows (
-    state           TEXT PRIMARY KEY,
-    nonce           TEXT NOT NULL,
-    code_verifier   TEXT NOT NULL,
-    provider        TEXT NOT NULL,
-    expires_at      INTEGER NOT NULL
-  );
+CREATE TABLE IF NOT EXISTS oidc_flows (
+  state           TEXT PRIMARY KEY,
+  nonce           TEXT NOT NULL,
+  code_verifier   TEXT NOT NULL,
+  provider        TEXT NOT NULL,
+  expires_at      INTEGER NOT NULL
+);
 
-  CREATE TABLE IF NOT EXISTS logs (
-    id          INTEGER PRIMARY KEY AUTOINCREMENT,
-    timestamp   INTEGER NOT NULL,
-    type        TEXT NOT NULL,
-    message     TEXT NOT NULL
+CREATE TABLE IF NOT EXISTS logs (
+  id          INTEGER PRIMARY KEY AUTOINCREMENT,
+  timestamp   INTEGER NOT NULL,
+  type        TEXT NOT NULL,
+  message     TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS passkeys (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  public_key TEXT NOT NULL,
+  counter INTEGER NOT NULL,
+  device_type TEXT NOT NULL,
+  backed_up INTEGER NOT NULL,
+  transports TEXT,
+  FOREIGN KEY(user_id) REFERENCES users(id)
   );
+  
 `);
 
 export default db;
@@ -96,4 +108,14 @@ export interface OAuthState {
   state: string;
   provider: string;
   expires_at: number;
+}
+
+export interface Passkey {
+  id: string;              // Credential ID (định danh của khóa)
+  user_id: string;         // Khóa ngoại liên kết tới bảng users
+  public_key: string;      // Khóa công khai (Public Key) lưu dưới dạng base64
+  counter: number;         // Biến đếm số lần sử dụng để chống tấn công phát lại
+  device_type: string;     // Loại thiết bị (ví dụ: 'single_device' hoặc 'multi_device')
+  backed_up: number;       // Trạng thái đã sao lưu khóa (0 hoặc 1)
+  transports: string | null; // Các giao thức hỗ trợ (usb, ble, nfc, internal)
 }

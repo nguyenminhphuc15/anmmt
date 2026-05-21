@@ -7,21 +7,22 @@ import { ShieldCheck, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Nav from "@/components/nav";
 import MethodSelector from "@/components/login/method-selector";
-import { setSession, MOCK_IP, MOCK_DEVICE } from "@/lib/session";
 import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSelect = async (method: "magic-link" | "google" | "github") => {
+  // Đã thêm chữ "passkey" vào kiểu dữ liệu của biến method
+  const handleSelect = async (
+    method: "magic-link" | "google" | "github" | "passkey"
+  ) => {
     setIsLoading(true);
-
-    // Simulate flow logic: for this demo, we'll redirect to specific demo pages
-    // and those pages will handle the final "login" session set.
 
     if (method === "magic-link") {
       router.push("/demo/magic-link");
+    } else if (method === "passkey") {
+      router.push("/demo/passkey"); // Điều hướng sang trang Passkey Demo
     } else if (method === "google" || method === "github") {
       router.push(`/demo/oauth?provider=${method}`);
     }
